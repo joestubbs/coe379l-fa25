@@ -26,7 +26,7 @@ Class Introduction
 **Important Links:**
 
 * Lecture Notes: https://coe379l-fa25.readthedocs.io/en/latest/
-* Canvas: https://utexas.instructure.com/courses/15914
+* Canvas: https://utexas.instructure.com/courses/1433233
 * Slack: https://tacc-learn.slack.com/   #coe-379l-fa25 (channel)
 
 
@@ -75,11 +75,6 @@ the hands-on portions will provide partial solutions to project assignments. Lec
 with worked examples will be posted to the class website right before the class meeting. 
 Additionally, there will be a class Slack channel for discussing ideas about the course with 
 your fellow students.
-
-**Attendance**
-
-Regular attendance is expected but absences will not count against the student’s grade. We expect 
-students to give us a week's notice in advance of their absence if known ahead of time.
 
 **Computer:**
 
@@ -130,11 +125,19 @@ We will provide more details about each of the projects as the assignment date a
 
 The grade for the course will be based on the project grades, as follows:
 
+* Attendance - 5%
 * Project 1 - 20% (Individual project)
 * Project 2 - 20% (Individual project)
-* Project 3 - 25% (Individual or groups of two project)
+* Project 3 - 20% (Individual or groups of two project)
 * Project 4 - 35% (Individual or groups of two project)
 
+**Attendance**
+
+Regular attendance is expected. We will conduct mini “quizzes” during the class. These will be 
+simple multiple choice questions based on the content we are covering that lecture. No “make up” 
+quizzes will be offered, but the lowest 4 attendance grades will be dropped. For extenuating circumstances, s
+uch as a serious illness requiring the student to miss multiple weeks of classes, we will work out an 
+arrangement on a case by case basis. 
 
 **Other Administrative Matters**
 

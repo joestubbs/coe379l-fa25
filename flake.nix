@@ -10,7 +10,7 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
-        python = pkgs.python313;
+        python = pkgs.python311;
         docsPython = python.withPackages (ps: [
           ps.sphinx
           ps.sphinx-autobuild
@@ -29,7 +29,7 @@
         packages = {
           default = pkgs.stdenv.mkDerivation {
             # builds to ./result
-            name = "tapis-docs";
+            name = "coe379l-docs";
             src = ./.;
             buildInputs = commonPackages;
             buildPhase = ''

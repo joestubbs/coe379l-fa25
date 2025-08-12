@@ -204,6 +204,9 @@ We'll assume you know the topics we covered in COE 332, for example:
 * How to read the documentation for a package and use it in your code. 
 * The basics of HTTP, Docker, flask (for building web APIs) 
 
+If you have not taken COE 332, we **encourage** you to use the `COE 332 materials <https://coe-332-sp25.readthedocs.org>`_ to learn any of the above topics 
+that you are not familiar with. 
+
 What is Artificial Intelligence and Machine Learning?
 -----------------------------------------------------
 
@@ -311,7 +314,7 @@ Class Schedule
 * Week 11: Hands-on Transformers; The Ollama Project; Linear Workflows with LLMs and LangChain **Assign Project 4**
 * Week 12: Linear Workflows with LLMs and LangChain cont.; Introduction to Retrieval Augmented Generation (RAG) **Project 3 Due**
 * Week 13: Special Topics (e.g., Graph Databases; Non-linear Workflows with LLMs; LLM Benchmarks)
-* Thanks Giving Break
+* Thanksgiving Break
 * Week 14: Special Topics (e.g., Graph Databases; Non-linear Workflows with LLMs; LLM Benchmarks)
 
 Final projects will be due during the `Final Exam day for our class <https://registrar.utexas.edu/schedules/259/finals>`_; **TBD**

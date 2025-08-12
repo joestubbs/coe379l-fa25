@@ -14,7 +14,7 @@ Class Introduction
 * Anagha Jamthe, ajamthe@tacc.utexas.edu
 
 
-**Time:** Tues/Thur 11:00an - 12:30pm
+**Time:** Tues/Thur 11:00am - 12:30pm
 
 
 **Location:** UTC 1.118
@@ -160,7 +160,7 @@ Disabilities at 471-4321.
 Evaluation:
 Note that the Measurement and Evaluation Center forms for the Cockrell School of Engineering will 
 be used during the last week of class to evaluate the course and the instructor. They will be 
-conducted in an electronic format for Spring 2024. You may also want to note any other methods of 
+conducted in an electronic format for Fall 2025. You may also want to note any other methods of 
 evaluation you plan to employ.
 
 **Artificial Intelligence**
@@ -192,7 +192,7 @@ will introduce the ideas involved with most of the algorithms we cover, so that 
 for the flavor. 
 
 As with COE 332, we will emphasize applications written in the Python programming language. We will make use 
-of a number of open source libraries, including numpy, pandas, matplotlib, seanbourn, scikitlearn, tensorflow 
+of a number of open source libraries, including numpy, pandas, matplotlib, seaborn, scikitlearn, tensorflow 
 and keras. This year, we'll be doing more with transformers and large language models (LLMs) than previously,
 and we'll introduce libraries such as transformers and LangChain for those topics. 
 
@@ -307,16 +307,14 @@ Class Schedule
 * Week 7: Introduction to Neural Networks and Deep Learning
 * Week 8: Introduction to Convolution Neural Networks (CNNs) **Assign Project 2** 
 * Week 9: MLOps **Project 2 Due** 
-
-* Spring Break 
-
 * Week 10: Introduction to Transformers **Assign Project 3**
 * Week 11: Hands-on Transformers; The Ollama Project; Linear Workflows with LLMs and LangChain **Assign Project 4**
 * Week 12: Linear Workflows with LLMs and LangChain cont.; Introduction to Retrieval Augmented Generation (RAG) **Project 3 Due**
 * Week 13: Special Topics (e.g., Graph Databases; Non-linear Workflows with LLMs; LLM Benchmarks)
+* Thanks Giving Break
 * Week 14: Special Topics (e.g., Graph Databases; Non-linear Workflows with LLMs; LLM Benchmarks)
 
-Final projects will be due during the `Final Exam day for our class <https://registrar.utexas.edu/schedules/252/finals>`_; **TBD**
+Final projects will be due during the `Final Exam day for our class <https://registrar.utexas.edu/schedules/259/finals>`_; **TBD**
 
 
 **Before We Leave Class**

@@ -95,8 +95,8 @@ use Slack for general communications and to help with the materials. https://tac
 
 **Project Assignments**
 
-Four multi-week projects assigned throughout the semester will cover the topics presented in the course. 
-On the first two projects, each student must work alone. On the last two projects, students will be 
+Three multi-week projects assigned throughout the semester will cover the topics presented in the course. 
+On the first two projects, each student must work alone. On the last project, students will be 
 allowed to work alone or with one other student; however, each student group must write up and submit 
 their own solution, including code their own programs and write their own analysis. Students are not 
 allowed to submit duplicates of other students’ work on any of the projects.
@@ -104,14 +104,14 @@ allowed to submit duplicates of other students’ work on any of the projects.
 
 **Details about the Projects**
 
-The first three projects will be centered around a dataset. You will be given a dataset and asked 
+The first two projects will be centered around a dataset. You will be given a dataset and asked 
 to use the techniques from class to analyze it, build one or more models using the data and assess 
 the model(s) you build. You may also be asked to package your model as an inference server. 
 You will host the code you develop for the projects in a git repository. In addition to the code, 
-you will also be asked to provide a written description of the work. There will be two classification 
-projects and one regression project. 
+you will also be asked to provide a written description of the work. Both projects are likely 
+to be classification projects. 
 
-The last project will be open ended. You will be free to design an idea for a project that is of 
+The third and last project will be open ended. You will be free to design an idea for a project that is of 
 interest to you, building upon any of the previous projects. You may incorporate any of the techniques
 or ideas presented in lecture, and you may also choose to study and incorporate outside ideas, such as 
 ideas from published papers or a new ML technology. You will initially "pitch" your project by 
@@ -121,22 +121,33 @@ described in the proposal.
 
 We will provide more details about each of the projects as the assignment date approaches. 
 
+**Exam**
+
+There will be one in-class exam, to be held on **Tuesday, November 4th**. All students are required 
+to take the exam at the scheduled time. If you have a conflict with 
+this time, please discuss with us immediately. Unfortunately, we will not be able to offer a makeup exam. 
+
+You will not be able to reference any notes or online materials during the exam. However, the exams will 
+be "conceptual", focusing on your understanding of the foundational concepts. They will not require you 
+to memorize code library APIs, etc. Prior to the exam, we will provide a comprehensive study guide to 
+help you prepare. 
+
 **Grading**
 
-The grade for the course will be based on the project grades, as follows:
+The grade for the course will be based on the attendance, exam, and project grades, as follows:
 
 * Attendance - 5%
 * Project 1 - 20% (Individual project)
 * Project 2 - 20% (Individual project)
-* Project 3 - 20% (Individual or groups of two project)
-* Project 4 - 35% (Individual or groups of two project)
+* Exam - 25% (Individual, "closed book")
+* Project 3 - 30% (Individual or groups of two project)
 
 **Attendance**
 
-Regular attendance is expected. We will conduct mini “quizzes” during the class. These will be 
+Regular attendance is expected. We will conduct mini “quizzes” during the class via UT Canvas. These will be 
 simple multiple choice questions based on the content we are covering that lecture. No “make up” 
-quizzes will be offered, but the lowest 4 attendance grades will be dropped. For extenuating circumstances, s
-uch as a serious illness requiring the student to miss multiple weeks of classes, we will work out an 
+quizzes will be offered, but the lowest 4 attendance grades will be dropped. For extenuating circumstances, 
+such as a serious illness requiring the student to miss multiple weeks of classes, we will work out an 
 arrangement on a case by case basis. 
 
 **Other Administrative Matters**
@@ -166,15 +177,37 @@ evaluation you plan to employ.
 **Artificial Intelligence**
 
 The creation of artificial intelligence tools for widespread use is an exciting innovation. These 
-tools have both appropriate and inappropriate uses in classwork. The use of artificial intelligence 
-tools (such as ChatGPT) in this class shall be permitted on a limited basis. You will be informed 
-as to the assignments for which AI may be utilized. We ask that you do not use AI writing tools on 
-any assignment and that you do not use AI tools to write code for you. Learning to write is an 
-important skill in life. Whenever AI tools are used, they should be used with caution and proper 
-citation, as the use of AI should be properly attributed. Using AI tools without my permission 
-or authorization, or failing to properly cite AI even where permitted, shall constitute a violation of 
-UT Austin’s Institutional Rules on academic integrity.
+tools have both appropriate and inappropriate uses in classwork just as in the "real world". Learning 
+how best to use these tools is very important. At the same time, learning foundational concepts and 
+ideas remains essential, not least of which because AI tools are fallible, and often times, 
+identifying their mistakes requires expertise. 
 
+For these reasons, the use of artificial intelligence tools in this class shall be permitted
+but with some limits. On each assignment, you will be informed exactly how AI may be utilized. 
+In general, we will ask that you do not use AI tools for any written portions of assignments (e.g., the 
+written reports that are required for the projects). Learning to write is an 
+important skill in life. On the other hand, using AI tools to help you debug code, brainstorm ideas for 
+projects, or study for an exam are excellent uses. We highly recommend you use the 
+`UT AI Hub <https://tech.utexas.edu/initiatives/artificial-intelligence>`_ for pre-approved 
+tools, specifically:
+
+* UT Spark: UT's all-in-one AI platform, available for free to all current faculty, staff and students. 
+* UT Sage:  A safe, secure AI-powered tutor endorsed for use in UT classrooms. 
+
+For each project, we will require a separate "AI Usage" Document that will specify all use of AI that 
+led to any code used in the project. The AI Usage document will be similar to a bibliography, with 
+each entry including: 
+
+ 1. The prompt used to generate the AI response. 
+ 2. The AI response used in the project. 
+
+Within the code (e.g., Jupyter notebook file), we'll ask that you reference the AI Usage entry number 
+next to the location where the code was added (similar to a bibliography).
+
+Note that using AI tools without my permission or authorization, or failing to properly cite AI even 
+where permitted, shall constitute a violation of UT Austin’s Institutional Rules on academic integrity.
+
+Note also that you will still need to master fundamental concepts as these will be tested on the exam. 
 
 
 Software Design for Responsible Intelligent Systems 
@@ -301,23 +334,24 @@ Class Schedule
 
 **Class Schedule (approximate, subject to change)**
 
-* Week 1: Syllabus, Introduction to the course; TACC accounts, Class VM, Jupyter notebooks
-* Week 2: Introduction to data analysis, Numpy, Pandas, Matplotlib, Seaborn, 
-* Week 3: Introduction to machine learning, Linear Regression, 
-* Week 4: Linear Classification, K-nearest neighbor, cross-validationtion; **Assign Project 1**
-* Week 5: Decision Trees, Random Forests, Ensemble methods; Boosting & Stacking; Measures of Model Quality. 
-* Week 6: Data Standardization; Model Pipelines; Model Persistence; **Project 1 Due**
-* Week 7: Introduction to Neural Networks and Deep Learning
-* Week 8: Introduction to Convolution Neural Networks (CNNs) **Assign Project 2** 
-* Week 9: MLOps **Project 2 Due** 
-* Week 10: Introduction to Transformers **Assign Project 3**
-* Week 11: Hands-on Transformers; The Ollama Project; Linear Workflows with LLMs and LangChain **Assign Project 4**
-* Week 12: Linear Workflows with LLMs and LangChain cont.; Introduction to Retrieval Augmented Generation (RAG) **Project 3 Due**
-* Week 13: Special Topics (e.g., Graph Databases; Non-linear Workflows with LLMs; LLM Benchmarks)
+* Week 1 (Aug 26, 28): Syllabus, Introduction to the course; TACC accounts, Class VM, Jupyter notebooks
+* Week 2 (Sep 2, 4): Introduction to data analysis, Numpy, Pandas, Matplotlib, Seaborn, 
+* Week 3 (Sep 9, 11): Introduction to machine learning, Linear Regression, 
+* Week 4 (Sep 16, 18): Linear Classification, K-nearest neighbor, cross-validationtion; **Assign Project 1**
+* Week 5 (Sep 23, 25): Decision Trees, Random Forests, Ensemble methods; Boosting & Stacking; Measures of Model Quality. 
+* Week 6 (Sep 30, Oct 2): Data Standardization; Model Pipelines; Model Persistence; **Project 1 Due**
+* Week 7 (Oct 7, 9): Introduction to Neural Networks and Deep Learning **Assign Project 2** 
+* Week 8 (Oct 14, 16): Introduction to Convolution Neural Networks (CNNs) 
+* Week 9 (Oct 21, 23): MLOps **Project 2 Due** 
+* Week 10 (Oct 28, 39()): Introduction to Transformers 
+* Week 11 (Nov 4, 6): **In-class Exam**; Hands-on Transformers; **Assign Project 3**
+* Week 12 (Not 11, 13): Linear Workflows with LLMs and LangChain cont.; Introduction to Retrieval Augmented Generation (RAG) 
+* Week 13 (Nov 18, 20): Special Topics (e.g., Graph Databases; Non-linear Workflows with LLMs; LLM Benchmarks) **Project 3 Proposal Due**
 * Thanksgiving Break
-* Week 14: Special Topics (e.g., Graph Databases; Non-linear Workflows with LLMs; LLM Benchmarks)
+* Week 14 (Dec 2, 4): Special Topics (e.g., Graph Databases; Non-linear Workflows with LLMs; LLM Benchmarks)
 
-Final projects will be due during the `Final Exam day for our class <https://registrar.utexas.edu/schedules/259/finals>`_; **TBD**
+Final projects (Project 3) will be due during 
+the `Final Exam day for our class <https://registrar.utexas.edu/schedules/259/finals>`_; **TBD**
 
 
 **Before We Leave Class**

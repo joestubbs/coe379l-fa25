@@ -8,4 +8,5 @@ processing and analysis.
 .. toctree::
    :maxdepth: 1
 
-   class_intro   
+   class_intro
+   class_vm

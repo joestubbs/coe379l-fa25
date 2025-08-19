@@ -20,27 +20,30 @@
           ps.docutils
           ps.setuptools
         ]);
-        commonPackages = [ docsPython pkgs.rsync pkgs.gnumake pkgs.lesspipe pkgs.coreutils pkgs.bashInteractive pkgs.which ];
+        commonPackages = [ docsPython pkgs.rsync pkgs.gnumake pkgs.lesspipe pkgs.less pkgs.coreutils pkgs.bashInteractive pkgs.which ];
       in {
-        devShells.${system}.default = shell {
+        devShells.default = pkgs.mkShell {
           name = "379L";
           buildInputs = commonPackages;
+          shellHook = ''
+           eval "$(lesspipe.sh)"
+           '';
         };
-        packages = {
-          default = pkgs.stdenv.mkDerivation {
-            # builds to ./result
-            name = "coe379l";
-            src = ./.;
-            buildInputs = commonPackages;
-            buildPhase = ''
-              make html
-            '';
-            installPhase = ''
-              mkdir -p $out
-              cp -r build/html $out/
-            '';
-          };
-        };
+        # packages = {
+        #   default = pkgs.stdenv.mkDerivation {
+        #     # builds to ./result
+        #     name = "coe379l";
+        #     src = ./.;
+        #     buildInputs = commonPackages;
+        #     buildPhase = ''
+        #       make html
+        #     '';
+        #     installPhase = ''
+        #       mkdir -p $out
+        #       cp -r build/html $out/
+        #     '';
+        #   };
+        # };
       }
     );
 }

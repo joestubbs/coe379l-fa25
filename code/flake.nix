@@ -1,5 +1,5 @@
 {
-  description = "COE 379L (Fall 2025) Class Jupyter Server";
+  description = "COE 379L (Fall 2025) Student Jupyter Server";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     flake-utils.url = "github:numtide/flake-utils";
@@ -18,6 +18,7 @@
       numpy
       pandas
       pillow
+      protobuf
       requests
       seaborn
       scikit-learn
@@ -26,14 +27,33 @@
       tensorflow
     ]);
     commonPackages = [ python pkgs.rsync pkgs.gnumake pkgs.lesspipe pkgs.less pkgs.coreutils pkgs.bashInteractive pkgs.which ];
-    in {
-        devShells.default = pkgs.mkShell {
+
+    in rec {
+        devShell = shell {
           name = "379L";
           buildInputs = commonPackages;
-          shellHook = ''
-           eval "$(lesspipe.sh)"
-           '';
         };
-      }
-    );
+
+ #       dockerImage = pkgs.dockerTools.buildLayeredImage {
+ #           name = "jstubbs/coe79L";
+ #           tag = "fa25";
+ #           contents = [ commonPackages ];
+ #           created = "now"; # Fix create time in docker images
+ #           config = {
+ #               Cmd = [ "${devShell}/bin/bash" ]; # Set the entrypoint to a shell
+ #               #Cmd = [ "${pkgs.bash}/bin/bash" ]; # Set the entrypoint to a shell
+ #               WorkingDir = "/coe379L"; # Set a working directory
+ #           };
+ #       };
+        dockerImage = pkgs.dockerTools.buildNixShellImage {
+            name = "jstubbs/coe79L";
+            tag = "fa25";
+            drv = devShell;
+        };
+
+        packages = {
+            docker = dockerImage;
+            default = dockerImage;
+        };
+      });
 }

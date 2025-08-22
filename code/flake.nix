@@ -34,17 +34,6 @@
           buildInputs = commonPackages;
         };
 
- #       dockerImage = pkgs.dockerTools.buildLayeredImage {
- #           name = "jstubbs/coe79L";
- #           tag = "fa25";
- #           contents = [ commonPackages ];
- #           created = "now"; # Fix create time in docker images
- #           config = {
- #               Cmd = [ "${devShell}/bin/bash" ]; # Set the entrypoint to a shell
- #               #Cmd = [ "${pkgs.bash}/bin/bash" ]; # Set the entrypoint to a shell
- #               WorkingDir = "/coe379L"; # Set a working directory
- #           };
- #       };
         dockerImage = pkgs.dockerTools.buildNixShellImage {
             name = "jstubbs/coe79L";
             tag = "fa25";

@@ -11,13 +11,13 @@ One software component available here is the Jupyter notebook server used for th
 1. Build the docker image using nix
 
 ```
- nix build .#packages.x86_64-linux.docker
+nix build .#packages.x86_64-linux.docker
 ```
 
 2. Load the tar.gz as a tagged docker image
 
 ```
-    docker load < result
+docker load < result
 ```
 
 3. Run the image locally:

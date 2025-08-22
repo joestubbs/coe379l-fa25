@@ -26,7 +26,19 @@
       scipy
       tensorflow
     ]);
-    commonPackages = [ python pkgs.rsync pkgs.gnumake pkgs.lesspipe pkgs.less pkgs.coreutils pkgs.bashInteractive pkgs.which ];
+    commonPackages = [ 
+      python 
+      pkgs.rsync 
+      pkgs.gnumake 
+      pkgs.lesspipe
+      pkgs.less 
+      pkgs.coreutils-full
+      pkgs.bashInteractive 
+      pkgs.which 
+      pkgs.file
+      pkgs.procps
+
+    ];
 
     in rec {
         devShell = shell {
@@ -35,9 +47,10 @@
         };
 
         dockerImage = pkgs.dockerTools.buildNixShellImage {
-            name = "jstubbs/coe79L";
+            name = "jstubbs/coe379l";
             tag = "fa25";
             drv = devShell;
+#            run = "sleep infinity";
         };
 
         packages = {

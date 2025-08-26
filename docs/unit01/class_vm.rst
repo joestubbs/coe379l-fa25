@@ -76,7 +76,7 @@ We have created a Docker image available on the public Docker Hub (hub.docker.co
 
 .. note:: 
  The class image is ``jstubbs/coe379l``. 
- Use either the default (latest) tag or the ``:sp25`` tag. 
+ Use either the default (latest) tag or the ``:fa25`` tag. 
 
 The docker image contains all of the libraries that we will need for the course, including 
 ``numpy`` and ``jupyter``. 

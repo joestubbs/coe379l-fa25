@@ -607,10 +607,6 @@ See the pandas documentation [3] for more about missing data.
   >>> r1_nan == np.nan 
   False 
 
-  # confirm it is not == to np.nan 
-  >>> r1_nan is np.nan 
-  True 
-
 
 Functions on DataFrames 
 ~~~~~~~~~~~~~~~~~~~~~~~

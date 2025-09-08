@@ -20,13 +20,13 @@ By the end of this module, students should be able to:
    categorical data to integers using one-hot encoding. 
 4. Perform basic duplicate and missing value detection and treatment. 
 5. Compute basic statistical properties of data, including mean, median, max and min. 
-6. Apply simple univariate and multivariate analysis of the feature columents including 
+6. Apply simple univariate and multivariate analysis of the feature columms including 
    visualization techniques using matplotlib and/or seaborn libraries. 
 
 
 In this module, we will illustrate the concepts by working through a dataset hosted 
 on the class GitHub repo. Before getting started, please download the 
-used cars `dataset <https://github.com/joestubbs/coe-379l-sp25/blob/master/datasets/unit01/used_cars_data.csv>`_
+used cars `dataset <https://github.com/joestubbs/coe379l-fa25/blob/main/datasets/unit01/used_cars_data.csv>`_
 from the class repository. 
 
 Step 0: Inspect the File
@@ -287,7 +287,9 @@ We'll use the regular expression to extract number before the space in ``engine`
 Recall from the previous module the ``astype()`` function, for casting to a specific python type.  
 
 .. code-block:: python3
-   cars['engine'] = cars['engine'].str.extract(r'(\d+(\.\d+)?)')[0].astype(float).astype(float)
+
+   >>> cars['engine'] = cars['engine'].str.extract(r'(\d+(\.\d+)?)')[0].astype(float)
+
 
 Regular Expression ``(r'(\d+(\.\d+)?)')``:
 ``\d+`` matches one or more digits (i.e., the whole number part of the horsepower).

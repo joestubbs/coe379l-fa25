@@ -13,3 +13,4 @@ processing and analysis.
    intro_da_and_numpy
    pandas
    eda
+   featureengineering

@@ -2,7 +2,7 @@ Feature Engineering
 =======================
 
 Definition
-==========
+^^^^^^^^^^^
 
 Feature engineering is the process of **transforming raw data into
 meaningful inputs (features)** that machine learning models can
@@ -30,7 +30,7 @@ understand.
 -  Same raw data, but better structured information.
 
 Key Types of Feature Engineering
-================================
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 1. **Cleaning**  Fixing missing values, removing duplicates, converting
    data types.
@@ -67,10 +67,9 @@ and discuss the various Feature Engineering Tasks.
 
 
 Feature Engineering Tasks
-=========================
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 1. Datetime Features (from Published Date)
-===========================================
 
 ==================== ======================================
 Derived Feature      Purpose
@@ -81,7 +80,6 @@ Weekend Flag         Binary flag (1 = Weekend, 0 = Weekday)
 ==================== ======================================
 
 2. Categorical Encoding
-========================
 
 +-----------------------+-----------------------+-----------------------+
 | Feature               | Encoding Method       | Notes                 |
@@ -96,7 +94,7 @@ Weekend Flag         Binary flag (1 = Weekend, 0 = Weekday)
 +-----------------------+-----------------------+-----------------------+
 
 3. Spatial Features (Latitude/Longitude)
-========================================
+
 
 +-----------------------------------+-----------------------------------+
 | Transformation                    | Purpose                           |
@@ -112,7 +110,7 @@ Weekend Flag         Binary flag (1 = Weekend, 0 = Weekday)
 +-----------------------------------+-----------------------------------+
 
 4. Address Text Feature Engineering (Optional but Valuable)
-============================================================
+
 
 ====================== =======================================
 Transformation         Purpose
@@ -123,7 +121,7 @@ Text Length of Address Indirect signal for address granularity
 ====================== =======================================
 
 5. Feature Scaling
-===================
+
 
 ================================== ==============================
 Feature                            Scaling Method
@@ -134,7 +132,7 @@ Time-based Features (if numerical) StandardScaler (mean 0, std 1)
 
 
 Target & ML Goals
-=================
+^^^^^^^^^^^^^^^^^^
 
 +-----------------------+-----------------------+-----------------------+
 | Task                  | Target Feature        | ML Type               |
@@ -152,7 +150,7 @@ Target & ML Goals
 
 
 Summary:
-=========
+^^^^^^^^
 
 * **Traffic incidents are inherently temporal.**  
    Patterns in collisions, hazards, and stalled vehicles **follow time-of-day and day-of-week rhythms**.

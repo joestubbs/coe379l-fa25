@@ -50,8 +50,8 @@ signals that help AI make better predictions. It’s less about magic
 algorithms and more about asking the right questions of your data.”
 
 We will look at a the dataset from Austin Traffic Data
-`dataset <https://raw.githubusercontent.com/joestubbs/coe379l-fa25/refs/heads/main/datasets/unit01/sampled_ATX_Traffic.csv>`
-`Source <https://www.designsafe-ci.org/data/browser/tapis/designsafe.storage.community/%2FTraining%2FSampleData>`
+`dataset <https://raw.githubusercontent.com/joestubbs/coe379l-fa25/refs/heads/main/datasets/unit01/sampled_ATX_Traffic.csv>`_
+`Source <https://www.designsafe-ci.org/data/browser/tapis/designsafe.storage.community/%2FTraining%2FSampleData>`_
 and discuss the various Feature Engineering Tasks.
 
 .. code-block:: python3 

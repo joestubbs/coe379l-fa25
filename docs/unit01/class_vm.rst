@@ -143,6 +143,18 @@ For example, since my username is ``jstubbs``, I would use the following URL
 
     Your token will be different each time you start your notebook server container! 
 
+.. note:: 
+
+  If you forget your token, you can always recover it by exec'ing into the container and 
+  issuing the command ``jupyter server list``. That will show you a list of your running
+  notebook servers and their associated tokens, e.g., 
+
+.. code-block:: console
+
+  $ jupyter server list
+    Currently running servers:
+    http://0f77771709d0:8888/?token=7d68184350509612387e5cc23f9ef9879efa0df34d2f199a
+
 
 Tangent: Docker Review 
 ~~~~~~~~~~~~~~~~~~~~~~

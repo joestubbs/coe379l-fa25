@@ -232,11 +232,17 @@ Linear Regression in Sklearn: First Steps
 As a first step, let's create a linear regression model using our real-estate data from above. 
 
 
-To get started, we create a ``LinearRegression`` object from the ``sklearn.linear_model`` module:
+To get started, we import the ``linear_model`` module from ``sklearn``:
 
 .. code-block:: python3 
 
-   >>> lr = sklearn.linear_model.LinearRegression()
+   >>> from sklearn import linear_models
+
+We then create a ``LinearRegression`` object from the ``sklearn.linear_model`` module:
+
+.. code-block:: python3 
+
+   >>> lr = linear_model.LinearRegression()
 
 The next step is to fit the model to some data. We'll go ahead and use all of the data points 
 from the five properties in the discussion above. We'll use the ``.fit()`` function to fit the model to a collection of data.

@@ -344,21 +344,16 @@ We can pass Pandas DataFrames directly to the sklearn functions (e.g., ``fit()``
 once they have been pre-processed. 
 
 Let's try this with our used cars data from unit 1. Recall that we had done a lot of pre-processing 
-work on that dataset. We'll want to use that here. If we try to use Linear Regression on the original 
+work on that dataset. We'll need to use a completely pre-processed version of the data in 
+order to make use of the sklearn algorithms. If we try to use Linear Regression on the original 
 dataset, we will run into all kinds of issues having to do with the fact that the dataset contains 
 non-numeric data. 
 
-.. note:: 
-
-    You can use the output of your own dataset using the ``df.to_csv()`` function. 
-
-
 We've made an updated version of the dataset available on the class git repository inside unit02 folder.
-You can `download it here <https://raw.githubusercontent.com/joestubbs/coe379L-sp25/master/datasets/unit02/used_cars_data2.csv>`_.
+You can `download it here <https://raw.githubusercontent.com/joestubbs/coe379L-fa25/main/datasets/unit02/used_cars_data2.csv>`_.
 
-Either create your own csv from your pre-processing notebook or download the new csv from the website 
-and read it into a DataFrame. 
-
+You'll want to use this version of the dataset, as the one we did in class still had columns 
+that were non-numeric. 
 
 .. code-block:: python3
 

@@ -7,7 +7,7 @@ of some of the most useful (and at times, confusing) features.
 
 Overview
 --------
-We'll look at four functions in roughly increasing order: ``map``, ``applymap``, ``apply``, 
+We'll look at four functions in roughly increasing order of complexity: ``map``, ``applymap``, ``apply``, 
 and ``transform``. At a high level, these functions all work similarly: they accept 
 an input function and use it to modify elements in a dataframe. However, each is used 
 in slightly different situations. Here is a summary:

@@ -14,3 +14,4 @@ processing and analysis.
    pandas
    eda
    featureengineering
+   pandas_supplement

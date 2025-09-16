@@ -236,7 +236,7 @@ To get started, we import the ``linear_model`` module from ``sklearn``:
 
 .. code-block:: python3 
 
-   >>> from sklearn import linear_models
+   >>> from sklearn import linear_model
 
 We then create a ``LinearRegression`` object from the ``sklearn.linear_model`` module:
 

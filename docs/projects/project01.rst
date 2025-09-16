@@ -68,26 +68,26 @@ This dataset has the following 12 variables:
 * Breed: Breed of the animal
 * Color : color of the animal
 
-**Part 1 (6 points):** Your objective is to perform Exploratory data analysis on the dataset.
+**Part 1 (8 points):** Your objective is to perform Exploratory data analysis on the dataset.
 Complete the following:
 
 * Identify shape, size of the raw data (1 point)
 * Get information about datatypes. Comment if any of the variables need datatype conversion. Check for duplicate rows and treat them. (1 point)
 * Identify missing data and/or invalid values and treat them with suitable mean, median, mode or other method  (1 point)
 * Visualize the dataset through different univariate analysis and comment on your observations (2)
-* Drop duplicate rows and irrelevant columns. 
-* Convert all data to numeric and/or categorical data types. Hint: Make the Age at Outcome column a float by converting all values to one unit for example days.
+* Drop duplicate rows and irrelevant columns. (1 point)
+* Convert all data to numeric and/or categorical data types. Hint: Make the Age at Outcome column a float by converting all values to one unit for example days. (1 point)
 * Perform one-hot encoding on categorical variables (1 point)
 
-**Part 2 (9 points):** Fit Classification models on the data to predict the outcome type (OutcomeType):
+**Part 2 (7 points):** Fit Classification models on the data to predict the outcome type (OutcomeType):
 
 * First, drop the Breed column, as it will complicate the analysis here in Part 3. 
 * Split the data into training and test datasets. Make sure your split is reproducible and 
   that it maintains roughly the proportion of each class of dependent variable. (1 point)
-* Perform classification using  (6 points) 
-    * K-Nearest Neighbor Classifier 
-    * K-Nearest Neighbor Classifier using Grid search CV
-    * Linear classification
+* Perform classification to predict using OutcomeType (4 points) 
+    * K-Nearest Neighbor Classifier (1 point)
+    * K-Nearest Neighbor Classifier using Grid search CV (2 points)
+    * Linear classification (1 point)
 * Print report showing accuracy, recall, precision and f1-score for each classification model. Which 
   metric is most important for this problem? (You will explain your answer in the report in Part 3). ( 2 points)
 

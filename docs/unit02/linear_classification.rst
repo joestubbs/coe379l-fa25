@@ -123,11 +123,11 @@ To classify a point :math:`x\in X`, we check the sign of :math:`f(x)` --- if :ma
 The idea behind the algorithm is to iteratively compute the function :math:`f` on the inputs and 
 update the values of :math:`W` based on two simple rules:
 
-**Rule 1.** If :math:`f(x)` correctly assigns the class label, then do not change :math:`W`.
+**Rule 1.** For a given input, :math:`x_i`, if :math:`f(x_i)` correctly assigns the class label, then do not change :math:`W`.
 
-**Rule 2.** If :math:`f(x)` incorrectly assigns the class label, then update the :math:`W` 
+**Rule 2.** If :math:`f(x_i)` incorrectly assigns the class label, then update the :math:`W` 
 as follows: :math:`w_i := w_i + α∗y ∗ x_i`. Here, :math:`y` is the correct class label (i.e., -1 or 1)
-and :math:`alpha` is a term called the *learning rate*. 
+and :math:`\alpha` is a term called the *learning rate*. 
 
 **Theorem.** (Perceptron Convergence Theorem) If the input data is linearly separable, then the 
 algorithm described above learns a "correct" :math:`W` in a finite set of steps. In other words, it 

@@ -134,9 +134,11 @@ algorithm described above learns a "correct" :math:`W` in a finite set of steps.
 learns a function, :math:`f(X)`, that correctly classifies all points in the inputs space after 
 a finite set of updates. 
 
-We will not try to prove this theorem at this time, but we could give a proof in a future lecture. The
-idea of the proof is to bound the total number of updates above and below and show that these two bounds 
-converge. 
+We will not try to prove this theorem at this time, but we could give a proof in a future lecture. 
+Intuitively, since the dataset is finite and the data are linearly
+separable, there is some minimum, positive distance between the data points and the separating 
+hyperplane. On approach to building a proof is to bound the total number of updates above and below and show 
+that these two bounds converge. 
 
 
 Linear Classification with Scikit Learn

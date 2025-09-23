@@ -10,3 +10,4 @@ techniques for supervised learning.
    ml_intro
    linear_regression
    linear_classification
+   model_quality

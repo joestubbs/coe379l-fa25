@@ -294,8 +294,9 @@ Naturally, we use the training data when calling ``fit``:
 
     # the alpha is multiplied by the regularization term, which can impact overfitting vs underfitting, 
     # something we haven't discussed yet, but just note that a higher value of alpha more likely
-    # to underfit. Can try changing alpha=0.05 if the model doesn't achieve 100% accuracy. 
-    clf = SGDClassifier(loss="perceptron", alpha=0.01)
+    # to underfit. Can try experimenting with different values of alpha (e.g., alpha=0.10) 
+    # if the model doesn't achieve 100% accuracy. 
+    clf = SGDClassifier(loss="perceptron", alpha=0.05, random_state=1)
 
     clf.fit(X_train, y_train)
 
@@ -373,10 +374,10 @@ Examples:
     array([0, 1])
 
     >>> clf.coef_
-    array([[2.17976136, 0.84768497]])
+    array([[0.71421357, 0.25331713]])
 
     >>> clf.intercept_
-    array([-6.61195757])
+    array([-2.36966222])
 
     # consider one data point; it's a 1-D array with two values:
     >>> X_train[0]
@@ -384,18 +385,18 @@ Examples:
 
     # apply the decision_function to a single value (note the shape of the input):
     >>> clf.decision_function([X_train[0]])
-    array([-3.17277854])
+    array([-1.24767844])
 
     # this is the same as computing the linear combination of the coef_ and intercept_:
     >>> np.sum( clf.coef_*X_train[0]) + clf.intercept_
-    array([-3.17277854])
+    array([-1.24767844])
 
     >>> clf.decision_function(X_train)
-    array([-3.17277854,  4.46849599, -3.08801005, -3.39075468, -3.60873082,
-       -4.12945158,  4.51693513, -3.17277854,  5.37672989, -3.00324155,
+    array([-1.24767844,  1.22427453, -1.22234673, -1.3190998 , -1.39052115,
+       -1.55869558,  1.24503246, -1.24767844,  1.51453374, -1.19701502,
        . . .
 
-    # note that class predictions agree with the assoicated sign (positive or negative) of 
+    # note that class predictions agree with the associated sign (positive or negative) of 
     # the decision_function above
     >>> clf.predict(X_train)
     array([0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1,
@@ -403,11 +404,6 @@ Examples:
        1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0,
        0, 0, 1, 0])
 
-    >>> clf.coef_
-    array([[2.17976136, 0.84768497]])
-
-    >>> clf.intercept_
-    array([-6.61195757])
 
 
 Visualizing the Decision Boundary
@@ -540,10 +536,9 @@ Setosa two times.
 
 
 
-
-Hands-on Lab: Classifying Spam Email
-------------------------------------
-In this section, we guide you through developing a linear classifier for spam 
+A Real-World Application: Classifying Spam Email
+-------------------------------------------------
+In this section, we look at developing a linear classifier for spam 
 email detection. We'll use the "Spambase" dataset, a classic dataset 
 hosted on the UC Irvine Machine Learning Repository [5].
 
@@ -571,12 +566,17 @@ Finally, a single attribute ``spam`` with values in :math:`\{ 0, 1 \}` is the ta
 (dependent) variable. A value of 1 indicates the email was spam while a value of 0
 indicates that it was not spam.  
 
-The lab is structured as a series of exercises. We'll make use of the material above 
-on linear classification as well as previous material on data analysis. We'll also 
-introduce the confusion matrix in Exercise 4. Use a Jupyter notebook to work through 
-the exercises below in class. 
+We provide an outline for how one would make use of the material above 
+on linear classification as well as previous material on data analysis to build 
+a model to classify email as either spam or not spam. 
 
-**Exercise 1.** *Getting and Preparing the Data*. To get started, we'll download 
+We'll cover the basic outline in class and leave it as a take-home exercise
+
+
+Outline and Take-Home Exercise For Building a Spam Email Detector
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Step 1.** *Getting and Preparing the Data*. To get started, we'll download 
 the Spambase dataset. The dataset is available for download from the 
 UCI Archive `here <https://archive.ics.uci.edu/dataset/94/spambase>`_. The primary 
 dataset is described in a csv file called spambase.data. An auxillory file called 
@@ -588,7 +588,7 @@ spambase.names describes the dataset.
 2. Check and print the number of rows and columns in the dataset. 
 
 
-**Exercise 2.** *Data Exploration*.
+**Step 2.** *Data Exploration*.
 
 1. Compute standard statistics for each of the columns in the dataset, including:
    count, mean, standard deviation, min and max. 
@@ -601,14 +601,14 @@ spambase.names describes the dataset.
 4. Determine how many rows are spam and how many are not spam.  
 
 
-**Exercise 3.** *Split and Fit*. 
+**Step 3.** *Split and Fit*. 
 
 1. Split the data into training and test datasets. Make sure your split is 
    reproducible and that it maintains roughly the proportion of spam and non-spam emails.
 
 2. Fit the data to a linear classifier using the Perceptron algorithm. 
 
-**Exercise 4.** *Validation and Assessment*. 
+**Step 4.** *Validation and Assessment*. 
 
 1. Check the accuracy of your model on the test data set. 
 

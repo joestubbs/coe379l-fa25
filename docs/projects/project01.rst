@@ -3,7 +3,7 @@ Project 01 - 20 Points
 
 **Date Assigned:** Tuesday, Sep. 16, 2025
 
-**Due Date:** Thursday, Oct. 2, 2025, 5 pm CST. 
+**Due Date:** Tuesday, Oct. 7, 2025, 5 pm CST. 
 
 **Individual Assignment:** Every student should work independently and submit their own project.
 You are allowed to talk to other students about the project, but please do not copy any code 

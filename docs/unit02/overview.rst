@@ -11,3 +11,5 @@ techniques for supervised learning.
    linear_regression
    linear_classification
    model_quality
+   spambase_solution
+   knn

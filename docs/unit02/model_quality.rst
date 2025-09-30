@@ -33,9 +33,9 @@ Furthermore, accuracy can be a poor measure of a model in cases where the datase
 
 **Example: Spam Email**
 
-For example, we looked at spam email detection in the last unit. Our model tried to determine if an email was 
-spam or not. There are four cases, two cases where our model predicts correctly and two cases where it 
-does not: 
+For example, we looked at spam email detection in the last unit. In that scenario, we want to build a model to 
+determine if an email is spam or not. There are four cases, two cases where our model predicts correctly and 
+two cases where it does not: 
 
 Correct: 
 
@@ -230,7 +230,7 @@ intuition. The idea behind :math:`F_1` is to provide a metric that:
 This will be useful for imbalanced datasets.
 We can look at a specific example to make things concrete. 
 
-Suppose we have dataset with 100 samples and a "rare" class where only 5 samples are in the class 
+Suppose we have a dataset with 100 samples and a "rare" class where only 5 samples are in the class 
 (so, 95 samples are not in the class). Let's further suppose we have a model that makes a 50-50 
 guess as to whether the sample is in the class. Even in the best possible case, this model will 
 get all 5 samples correct and 45 samples wrong. Therefore, the TP, FP, and FN will be:

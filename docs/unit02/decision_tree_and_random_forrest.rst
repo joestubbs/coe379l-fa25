@@ -271,7 +271,7 @@ the weight of a 1,200 pound ox. The median of all of the guesses was less than 1
 the guesses of the "experts".
 
 The idea with random forrest is similar: instead of building one tree, build a bunch of 
-trees based on a radnom sampling of the features, and then create a single model which takes 
+trees based on a random sampling of the features, and then create a single model which takes 
 an "average" of all of the trees. 
 
 We won't go into more of the details behind the algorithms for random forrest, but again, 
@@ -318,7 +318,7 @@ if nothing else is being executed at the time, set it to the total number of cor
    from sklearn.ensemble import RandomForestClassifier
    from sklearn.model_selection import GridSearchCV
 
-   model = RandomForestClassifier()
+   model = RandomForestClassifier(random_state=1)
    param_grid = {
       "n_estimators": np.arange(start=10, stop=100, step=2),
       "max_depth": np.arange(start=2, stop=20),
@@ -336,8 +336,8 @@ The output should look similar to:
 
    {'class_weight': {0: 0.1, 1: 0.9},
     'max_depth': 2,
-    'min_samples_leaf': 2,
-    'n_estimators': 12
+    'min_samples_leaf': 1,
+    'n_estimators': 36
    }
 
 .. .. code-block:: bash 

@@ -532,7 +532,8 @@ threshold is used. If :math:`t` is our threshold, then the decision function wor
 
 where :math:`m(d)` is the (numeric) model learned and applied to the data point :math:`d`. 
 
-For each classifier, sklearn has implemented a *default* threshold, which is typically 0.5. This 
+For each classifier, sklearn has implemented a *default* threshold, which is typically 0 for functions 
+centered at the origin, or 0.5 for functions defined on the unit interval (:math:`[0, 1]`). This 
 default threshold is what is used in calls to ``predict()``. But there is another function available 
 on the model, the ``predict_proba()`` function. This function returns the raw numeric values output 
 by the model as an array, 1 value for each possible (target) class label. 

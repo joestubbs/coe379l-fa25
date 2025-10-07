@@ -42,39 +42,6 @@ There are several broad categories of ensemble techniques, including:
 3. **Stacking** : Combines the predictions of multiple models by training a meta-model to 
    combine them in an optimal way (often with different types of base learners).
 
-Bias and Variance
--------------------
-
-In machine learning, bias and variance are two fundamental sources of error that affects the performance of a model.
-Both the errors are seen when the model tries to generalize to predict on the unseen data. The goal is minimize
-both bias and variance, to achieve a model that generalizes well.
-
-A model with high *bias* makes strong assumptions about the data and tries to oversimplify the underlying patterns.
-This usually leads to **underfitting** as the model fails to capture the underlying patterns in data.
-
-On the other hand, *variance* refers to errors introduced by the model's sensitivity to small 
-fluctuations in the training data.
-A model with high variance is highly flexible and can fit the training data very well, but it often captures 
-noise or random fluctuations in the data rather than the true underlying patterns. This leads to overfitting, 
-where the model performs well on the training data but poorly on unseen test data.
-
-Bias-Variance Tradeoff. The relationship between bias and variance is inverse: reducing bias often 
-increases variance, and reducing variance often increases bias. 
-This is called the bias-variance tradeoff. The key is to find the right balance between 
-bias and variance that allows the model to generalize well to new, unseen data. 
-
-Bagging techniques reduces variance, where as boosting reduces both bias.
-
-
-When to Use Ensemble Techniques:
------------------------------------
-
-**High Bias (Underfitting)**: Boosting can help by iteratively correcting errors, reducing bias.
-
-**High Variance (Overfitting)**: Bagging (e.g., Random Forest) helps by averaging multiple models trained on different subsets of data, reducing variance.
-
-**Outliers or Noisy Data**: Ensemble methods are often robust to outliers or noisy data because they aggregate the predictions of multiple models.
-
 
 Boosting Techniques & Strong and Weak Learners 
 -----------------------------------------------
@@ -145,7 +112,7 @@ We're going to look at implementing Adaboost in sklearn.
 To illustrate, we'll work with a new dataset on 
 credit defaulting. This dataset was originally part of a 3 month long Kaggle competition called 
 "Give Me Some Credit" that ran in 2011 [2]. We have made part of the data available from our 
-course website, `here <https://raw.githubusercontent.com/joestubbs/coe379L-sp25/refs/heads/master/datasets/unit02/credit.csv>`_. 
+course website, `here <https://raw.githubusercontent.com/joestubbs/coe379L-fa25/refs/heads/main/datasets/unit02/credit.csv>`_. 
 
 In this dataset we have the following feature columns: 
 

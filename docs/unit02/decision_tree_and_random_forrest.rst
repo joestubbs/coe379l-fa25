@@ -299,7 +299,8 @@ There are some important hyperparameters for the ``RandomForestClassifier``.
   give the overrepresented class less weight). 
 
 We'll use cross validation with 5 folds to find the optimal values for these hyperparameters. 
-Recall the GridSearchCV convenience class to search the hyperparameter space. 
+As before, we'll use the GridSearchCV convenience class to search the hyperparameter space. 
+What should we use for the ``scoring`` parameter?
 
 We note that this hyperparameter space is quite large and the fit takes significant 
 time. We can speed this up by using the ``n_jobs`` parameter to the ``GridSearchCV``
@@ -311,7 +312,7 @@ if nothing else is being executed at the time, set it to the total number of cor
    
    The following code could take a pretty significant amount of time to run, from under 
    1 minutes to more than 10 minutes or more, depending on the hardware. On my class VM, 
-   it ran in about 6 and a half minutes. 
+   it ran in about 10 to 12 minutes. 
 
 .. code-block:: python3 
 
@@ -326,7 +327,7 @@ if nothing else is being executed at the time, set it to the total number of cor
       "class_weight": [{0: 0.1, 1: 0.9}, {0: 0.2, 1: 0.8}, {0: 0.3, 1: 0.7}],
    }
 
-   gscv = GridSearchCV(model, param_grid, cv=5, n_jobs=8, scoring="recall", )
+   gscv = GridSearchCV(model, param_grid, cv=5, n_jobs=4, scoring="recall", )
    gscv.fit(X_train, y_train)
    gscv.best_params_   
 
@@ -351,8 +352,8 @@ The output should look similar to:
 If the cell is taking a long time to run on your machine, you could try 
 hard-coding the ``class_weight`` to the ``{0: 0.1, 1: 0.9}`` value. 
 From experimentation, this has seemed to always be optimal and will reduce your 
-search space some. (For example, on my computer it reduces the run time from 5 minutes 
-to 3 minutes).  
+search space some. (For example, on my computer it reduces the run time to around 5 or
+6 minutes).  
 
 We can get at the best model found use the ``best_estimator_`` attribute, as before: 
 

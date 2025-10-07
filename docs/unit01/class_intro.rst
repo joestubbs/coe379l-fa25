@@ -334,21 +334,21 @@ Class Schedule
 
 **Class Schedule (approximate, subject to change)**
 
-* Week 1 (Aug 26, 28): Syllabus, Introduction to the course; TACC accounts, Class VM, Jupyter notebooks
-* Week 2 (Sep 2, 4): Introduction to data analysis, Numpy, Pandas, Matplotlib, Seaborn, 
-* Week 3 (Sep 9, 11): Introduction to machine learning, Linear Regression, 
-* Week 4 (Sep 16, 18): Linear Classification, K-nearest neighbor, cross-validationtion; **Assign Project 1**
-* Week 5 (Sep 23, 25): Decision Trees, Random Forests, Ensemble methods; Boosting & Stacking; Measures of Model Quality. 
-* Week 6 (Sep 30, Oct 2): Data Standardization; Model Pipelines; Model Persistence; **Project 1 Due**
-* Week 7 (Oct 7, 9): Introduction to Neural Networks and Deep Learning **Assign Project 2** 
-* Week 8 (Oct 14, 16): Introduction to Convolution Neural Networks (CNNs) 
-* Week 9 (Oct 21, 23): MLOps **Project 2 Due** 
-* Week 10 (Oct 28, 39()): Introduction to Transformers 
-* Week 11 (Nov 4, 6): **In-class Exam**; Hands-on Transformers; **Assign Project 3**
-* Week 12 (Not 11, 13): Linear Workflows with LLMs and LangChain cont.; Introduction to Retrieval Augmented Generation (RAG) 
-* Week 13 (Nov 18, 20): Special Topics (e.g., Graph Databases; Non-linear Workflows with LLMs; LLM Benchmarks) **Project 3 Proposal Due**
-* Thanksgiving Break
-* Week 14 (Dec 2, 4): Special Topics (e.g., Graph Databases; Non-linear Workflows with LLMs; LLM Benchmarks)
+* Week 1 (Aug 26, 28): Syllabus, Introduction to the course; TACC accounts and Onboarding
+* Week 2 (Sep 2, 4): Using the Class VM, Jupyter notebooks; Introduction to data analysis, Numpy
+* Week 3 (Sep 9, 11): Pandas, Matplotlib, Seaborn, Exploratory Data Analysis
+* Week 4 (Sep 16, 18): Introduction to machine learning, Linear Regression, Linear Classification. **Assign Project 1**
+* Week 5 (Sep 23, 25): Linear Classification Cont, Metrics for Model Quality 
+* Week 6 (Sep 30, Oct 2): K-nearest neighbor, cross-validation; Improving Specific Classification Metrics, Decision Trees
+* Week 7 (Oct 7, 9): Random Forests, Ensemble methods, **Project 1 Due**; Boosting & Stacking, Model Pipelines
+* Week 8 (Oct 14, 16): Introduction to Neural Networks and Deep Learning; Introduction to Convolution Neural Networks (CNNs), **Assign Project 2**  
+* Week 9 (Oct 21, 23): CNNs Cont; MLOps
+* Week 10 (Oct 28, 39()): MLOps Cont; Catch up and Exam Review **Project 2 Due**
+* Week 11 (Nov 4, 6): **In-class Exam**; Introduction to Transformers **Assign Project 3**
+* Week 12 (Not 11, 13): Introduction to Transformers Cont; Hands-on Transformers 
+* Week 13 (Nov 18, 20): Fine-tuning Transformers; Linear Workflows with LLMs and LangChain;  **Project 3 Proposal Due**
+* Week 14 (Nov 25, 27): Introduction to Retrieval Augmented Generation (RAG); **Thanksgiving Break**
+* Week 15 (Dec 2, 4): Special Topics (e.g., Graph Databases; Non-linear Workflows with LLMs; Agentic Architectures; LLM Benchmarks)
 
 Final projects (Project 3) will be due during 
 the `Final Exam day for our class <https://registrar.utexas.edu/schedules/259/finals>`_; **TBD**

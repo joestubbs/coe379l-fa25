@@ -132,7 +132,7 @@ b) An inference endpoint ``POST /inference`` that can perform classification on 
 **Note:** We are providing you with test code that will call your server (the ``GET /summary`` and the 
 ``POST /inference`` endpoints) and evaluate the responses to make sure they are in the correct format 
 and the outputs can be processed by our grader. You can find the test grader code with instructions on 
-how to run the code `here <https://github.com/joestubbs/coe379L-fa25/tree/main/code/Project3>`_. 
+how to run the code `here <https://github.com/joestubbs/coe379L-fa25/tree/main/code/Project2>`_. 
 
 Failure to conform to the correct 
 specification for the inference server will lead to significant penalty on the project grade.
@@ -172,5 +172,5 @@ instructions for using the container image, docker-compose file and example requ
 Part 4 should be submitted as a PDF file. 
 
 
-**In-class Project Checkpoint Thursday, April 4th**. We will devote the first portion of Thursday's 
+**In-class Project Checkpoint Thursday, November 6th**. We will devote the first portion of Thursday's 
 class to checking in on the project and answering questions. 

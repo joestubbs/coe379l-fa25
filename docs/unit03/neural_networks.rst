@@ -370,6 +370,20 @@ when :math:`x` is positive.
     :align: center
     :alt:
 
+The Softmax Activation Function 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The softmax function is a very popular activation function for multiclass classification 
+problems. Its formula is given by: 
+
+.. math:: 
+
+    f(z)_i = \frac {e^{z_i}} {\sum_{j=1}^K e^{z_j} }
+
+where :math:`K` is the length of the vector. 
+The way to interpret this function is that it takes an arbitrary vector of real numbers 
+and converts it to a probability distribution over $K$ possible outcomes. 
+
 
 Creating Layers and Computing the Output of Layers 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -665,12 +679,12 @@ We add layers to the model using the ``add`` method. In this case:
 Step 3: Compile the Model and Check Model Summary 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 The next step is to compile the model using the ``compile`` method. With compile, you can configure the model for 
-training. The ``model.compile`` function accepts a number of arguments. We being by 
+training. The ``model.compile`` function accepts a number of arguments. We begin by 
 introducing the following important arguments. For a complete list, see the Keras documentation for 
 compile `here <https://www.tensorflow.org/api_docs/python/tf/keras/Model#compile>`_.
 
 ``optimizer``: This parameter specifies the optimizer to use during training. Optimizers are algorithms or 
-methods are used to update the parameters of the neural network during training to minimize the loss function.
+methods that are used to update the parameters of the neural network during training to minimize the loss function.
 Examples: ``adam``, ``rmsprop``, ``sgd``. At a high level, these different options trade convergence speed 
 for computational resources required. Commonly, ``adam`` is often considered the best choice, at least to 
 start with. 
@@ -919,6 +933,26 @@ begins to decrease (overfitting starts to take place).
 
 In a future lecture, we'll look at methods for implementing this strategy using, for example, 
 the ``EarlyStopping`` functionality from Keras. 
+
+Sensitivity to Randomized Values and Initial Conditions 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+You may see quite different outputs/values when you execute the code above. For example, 
+on a different execution of the same code, I saw the following output. 
+
+.. code-block:: python3
+
+    . . . 
+    Epoch 17/20
+    4/4 - 0s - loss: 0.5573 - accuracy: 0.8611 - val_loss: 0.4950 - val_accuracy: 0.8333 - 20ms/epoch - 5ms/step
+    Epoch 18/20
+    4/4 - 0s - loss: 0.5371 - accuracy: 0.8519 - val_loss: 0.4696 - val_accuracy: 0.8333 - 21ms/epoch - 5ms/step
+    Epoch 19/20
+    4/4 - 0s - loss: 0.5186 - accuracy: 0.8241 - val_loss: 0.4472 - val_accuracy: 0.8333 - 20ms/epoch - 5ms/step
+    Epoch 20/20
+    4/4 - 0s - loss: 0.5017 - accuracy: 0.8241 - val_loss: 0.4263 - val_accuracy: 0.8333 - 20ms/epoch - 5ms/step
+
+This underscores the importance of understanding the output and making careful decisions 
+about how to proceed. 
 
 Conclusion 
 ^^^^^^^^^^

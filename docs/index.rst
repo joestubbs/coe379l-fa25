@@ -27,6 +27,7 @@ state-of-the-art techniques.
    :caption: Projects:
 
    projects/project01.rst
+   projects/project02.rst
 
 
 Additional Resources

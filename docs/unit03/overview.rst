@@ -8,3 +8,4 @@ Unit 3: Advanced Techniques for Machine Learning
    hands_on_nn
    cnn
    project01_summary
+   cheatsheet

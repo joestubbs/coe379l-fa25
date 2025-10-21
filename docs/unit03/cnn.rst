@@ -1,28 +1,25 @@
 Convolutional Neural Networks (CNNs)
 ================================================
 
-In this lecture, we will introduce Convolutional neural networks (CNNs) - a class of deep neural networks primarily used in image recognition and computer vision tasks. We will also discuss why CNNs are prefered over ANNs for image classification. 
-Although CNNs are a popular choice for image classification, they can also be used in Natural Language processing applications.
+In this lecture, we will introduce Convolutional Neural Networks (CNNs), a class of 
+deep neural networks primarily used in image recognition and computer vision tasks. 
+We will also discuss why CNNs are preferred over ANNs for image classification. 
+Although CNNs are a popular choice for image classification, they can also be used 
+in natural language processing applications.
 
 By the end of this module, students should be able to:
 
-- Understand challenges associated with ANNs.
+1. Understand challenges associated with ANNs for computer vision tasks. 
+2. Explain how CNNs overcome these challenges and perform better on image 
+   classification problems.
+3. Understand the primary components of a CNN architecture, including the Convolutional
+   Layer, the Pooling Layer, and the Flattening Layer. 
+4. Describe different variations on the CNN architecture, including VGG16 and LeNet-5. 
 
-- What makes CNN a better choice for solving image classification problems
-
-- Understand different CNN Architectures: For example: VGG16 and LeNet-5 
-
-Challenges with ANN
-~~~~~~~~~~~~~~~~~~~~~
-In the previous lecture, we saw an example of handwritten digit classification using ANNs.
-
-.. figure:: ./images/DigitClassificationANN.png
-    :width: 700px
-    :align: center
-    :alt: 
-
-We were able to achieve high prediction accuracy by an ANN model with multiple hidden layers. 
-Let's say we want to build a similar ANN model to distinguish between images of cats and dogs. 
+Challenges with ANN and Image Classification Tasks 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In the previous lecture, we saw an example of handwritten digit classification using ANNs. 
+Suppose we want to build a similar ANN model to distinguish between images of cats and dogs. 
 Let's assume that the images will be the same size of 28x28 pixels.
 
 
@@ -73,7 +70,7 @@ This means that it could take a significant amount of time to train such models 
 compute hardware. CNNs, with their convolutional and pooling layer, 
 have fewer parameters and are typically computationally less expensive in many cases.
 
-Considering the above challenges we will see how **Convolutional Neural Networks** can address them. 
+We will see how **Convolutional Neural Networks** address the challenges above.
 
 Convolutional Neural Networks (CNNs)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -156,15 +153,16 @@ during the training process through gradient descent with the goal of minimizing
 .. features or combinations of lower-level features that represent more abstract concepts, such as object parts or entire objects.
 
 
-**Translational Invariance in Convolutional Layers.**
-Convolutional layers also achieve a degree of `translational invariance` through parameter sharing. That is, 
-translations of the input do not impact the output. 
-The same set of filter weights is applied across all spatial positions of the input feature maps. 
-This makes it invariant to any shifts or translations. For example, if a filter learns to detect a horizontal edge in one region of the image, it can also detect the same in a slightly shifted position.    
+**Translational Equivariance in Convolutional Layers.**
+Convolutional layers also achieve `translational equivariance` through parameter sharing. 
+That is, a translation of the input results in the same translation being applied to the output. 
+For example, if you shift an image of a cat to the right, a convolutional layer will produce 
+a feature map that is also shifted to the right, showing the same features (like the cat's ear) 
+in the new location. 
 
-Note that, due to the way a convolution operates, the pixels from the corners of the image will be used fewer times in 
-the output calculations as compared to pixels in the middle of the image.
-This is due to the fact that the sliding window will slide over the middle more times than the edges. 
+Note that, due to the way a convolution operates, the pixels from the corners of the image 
+will be used fewer times in the output calculations as compared to pixels in the middle of 
+the image. This is due to the fact that the sliding window will slide over the middle more times than the edges. 
 Thus, we could undervalue information on the edges of images.
 
 To avoid this we use a technique known as *padding*, which adds a layer of zeros on the outer edges of image, 
@@ -175,6 +173,11 @@ thereby making the image bigger and preserving the pixels from image corners.
     :align: center
     :alt: 
 
+.. That is, translations of the input do not impact the output. 
+.. The same set of filter weights is applied across all spatial positions of the input feature maps. 
+.. This makes it invariant to any shifts or translations. For example, if a filter learns to 
+.. detect a horizontal edge in one region of the image, it can also detect the same in a 
+.. slightly shifted position.    
 
 Pooling Layer
 ^^^^^^^^^^^^^
@@ -206,7 +209,7 @@ An example will make things more clear.
 
 Consider the 4x4 feature map pictured on the left above and suppose we want to do pooling 
 with a 2x2 filter and a stride of 2. Sliding the 2x2 window over the 4x4 input results in 
-4 2x3 windows colored blue, yellow, green and red, as pictured. Then:
+4 2x2 windows colored blue, yellow, green and red, as pictured. Then:
 
 * With **Max Pooling**, we "summarize" each window by taking the max value in that region.
   This is pictured in the top right. 
@@ -219,27 +222,27 @@ with a 2x2 filter and a stride of 2. Sliding the 2x2 window over the 4x4 input r
     Max Pooling is typically used when the image has dark background to bring up 
     the brighter pixels.
 
-With the understanding of Convolutional and Pooling Layers we are now ready to put 
-it all the building blocks together and construct a CNN model.
+With an understanding of the Convolutional and Pooling layers we are now ready to put 
+all the building blocks together and construct a complete CNN model.
 
 Basic CNN Architecture
 ~~~~~~~~~~~~~~~~~~~~~~
 
-CNNs are primarily made from the building blocks: Convolutional layer, pooling layer, 
-flatten and fully connected (or "dense") layers.
+CNNs are primarily made from the building blocks: Convolutional layer, Pooling layer, 
+Flatten, and Fully connected (or "Dense") layers.
 
 .. figure:: ./images/CNN-Architecture.png
     :width: 700px
     :align: center
     :alt: 
 
-The convolutional layers along with the activation function and pooling layers are referred 
-to as the *feature extraction* stage. On the other hand, the flatten layer(s) and dense layers (ANN) comprise 
-the *prediction stage*. The output of convolutional and pooling layers in CNNs is typically in the form of
-a multi-dimensional feature map, where each feature map represents the activation of neurons at different 
-spatial locations. 
+The convolutional layers along with the activation function and pooling layers are 
+referred to as the *feature extraction* stage. On the other hand, the flatten layer(s) and dense 
+layers (ANN) comprise the *prediction stage*. The output of the convolutional and pooling layers 
+in a CNN is typically a multi-dimensional feature map, where each feature map 
+represents the activation of neurons at different spatial locations. 
 
-In a convolutional layer, a filter is applied to the input image and based on the size of filter,
+In a convolutional layer, a filter is applied to the input image, and based on the size of filter,
 a feature map is created. When creating a convolutional layer we specify the number of filters and it's size.
 Adding a convolutional layer is very straightforward with TensorFlow Keras:
 
@@ -272,7 +275,15 @@ classes, to do max pooling or average pooling, respectively.
 .. code-block:: python3
 
     from tensorflow.keras.layers import MaxPooling2D
-    model.add(MaxPooling2D((2, 2), padding = 'same'))
+    model.add(MaxPooling2D((2, 2), padding='same'))
+
+The ``model.add`` code above specifies max pooling with a 2x2 pool. 
+
+* Note that ``stride`` can also be supplied, but by default it is 2. 
+* Note that the ``padding="same"`` argument here **does not** indicate that the 
+  input and output have the same dimension (the whole point of the pooling layer is 
+  to reduce the dimension). Rather, the padding here is used when the input does not 
+  fit perfectly into the specified stride and pool size.
 
 We can keep adding a series of convolutional and pooling layers before flattening the output and
 finishing with a set of fully connected layers to produce the final output. Why
@@ -306,7 +317,9 @@ suitable for fully connected layers, which are typically used for making predict
     model.add(Dense(num_classes, activation='softmax'))
 
 As a reminder, the formula for calculating the total number of trainable parameters in each layer 
-is :math:`(Filter\_Size * Filter\_Size * Size\_of\_input\_channel +1 ) * number\_of\_filters`
+is 
+
+:math:`(Filter\_Size * Filter\_Size * Size\_of\_input\_channel +1 ) * number\_of\_filters`
 
 
 Solving the Fashion MNIST classification example with CNNs
@@ -389,7 +402,7 @@ Step 6: Evaluate on the test set.
 .. code-block:: python3 
 
     # evaluate on test 
-    test_loss, test_accuracy = model.evaluate(X_test_normalized, y_test_cat, verbose=0)
+    test_loss, test_accuracy = model_cnn.evaluate(X_test_normalized, y_test_cat, verbose=0)
 
 What did you notice about the difference between number of trainable parameters in a CNN vs the ANNs we 
 looked at in the previous lecture? What about the accuracy?

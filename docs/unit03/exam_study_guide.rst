@@ -81,5 +81,203 @@ Unit 3
 Example Exam Questions 
 ----------------------
 
-*Coming soon...*
+.. warning:: 
+
+  This set of example questions is **not** intended to be a comprehensive study guide. Rather,
+  it is only intended to give you a sense of the format of questions you will be asked. 
+  Be sure to review all of the topics in the previous section. 
+
+
+Short Answer 
+^^^^^^^^^^^^
+
+1. For each of the following scenarios, specify whether the problem would best be solved 
+   as a supervised or unsupervised learning problem.
+  * An e-commerce company wants to build a model to segment its customers into groups with 
+    similar purchasing patterns, without any predefined categories.
+  * A hospital has a dataset of patient blood test results, and each record indicates whether or not 
+    the patient was later diagnosed with diabetes. They want to train a model to predict 
+    if a new patient has diabetes based on their blood test results.
+  * A speech recognition team wants to build a model that converts spoken audio clips 
+    into text, using a dataset of audio clips paired with their corresponding 
+    transcriptions.
+  * An online streaming music company has the listening history of each of its users. It 
+    would like to build a model to identify groups of users with similar listening habits. 
+
+2. True/False
+  * A Linear Regression model makes use of decision functions and the perceptron algorithm. 
+  * A dataset contains information about the lengths of flower pedals, but some of the values 
+    are missing. Replacing the missing flower pedal lengths with the median of all lengths is 
+    an example of univariate imputation. 
+  * Decision Trees are an example of an ensemble method in machine learning. 
+  * A medical lab is training a machine learning model to predict whether a patient will be 
+    eligible for a new treatment. The treatment is cheap and very safe. The lab should 
+    evaluate and select the best model using the recall metric to minimize false negatives.
+
+3. Multiple choice 
+  * The K-nearest Neighbor algorithm:
+
+    a) Is one of the most accurate machine learning models
+    b) Can learn non-linear decision boundaries
+    c) Does not have any hyperparameters, so it is fast to train
+    d) Works best with recall
+    e) None of the above 
+
+  * The F-1 metric minimizes: 
+
+    a) False positives 
+    b) False negatives 
+    c) Precision 
+    d) Recall 
+    e) None of the above  
+
+  * When defining a ``Dense`` layer object in a ``Sequential`` Artificial 
+    Neural Network (ANN) using the Keras API, one must always:
+
+    a) Pass the input dimension as an argument
+    b) Ensure the layer has more perceptrons than its input dimension
+    c) Specify the batch size to use
+    d) Specify the number of perceptrons in the layer
+    e) None of the above 
+
+Longer Answer 
+^^^^^^^^^^^^^
+
+1. What is the purpose of cross validation in machine learning?  
+
+2. In the context of machine learning explain the difference between 
+   training accuracy, validation accuracy and test accuracy.
+
+3. Explain the difference between the Decision Tree algorithm and the Random Forrest 
+   algorithm. What are the strengths and weaknesses of each? 
+
+4. When would you use ``RobustScaler`` and when would you use ``StandardScalar`` on 
+   a data set? 
+   
+
+Code Analysis 
+^^^^^^^^^^^^^
+
+1. What will be the output of the following code? 
+
+.. code-block:: python3 
+
+  df = pd.DataFrame({
+    "A": [1, 2, 3],
+    "B": [10, 20, 30]
+  })
+
+  df["A"] = df["A"].map(lambda x: x * 2)
+  print(df)
+
+2. What is the output of the following code?
+
+.. code-block:: python3 
+
+  cars = pd.DataFrame({
+  "brand": ["Toyota", "Toyota", "Tesla", "Tesla"],
+  "price": [20000, 25000, 80000, 90000]
+  })
+  print(cars.groupby("brand")["price"].apply(sum))
+
+3. Your friend tells you they just figured out a clever way to 
+   improve the accuracy on their class project that uses K-nearest
+   Neighbor. They show you their main loop:
+
+.. code-block:: python3 
+
+      X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, stratify=y, random_state=1)
+      
+      best_model = none 
+      best_k = 0
+      best_accuracy = 0
+
+      for k in np.arange(1, 100):
+        m = knn = KNeighborsClassifier(n_neighbors=k)
+        m.fit(X_train, y_train)
+        accuracy = accuracy_score(y_test, m.predict(X_test))
+        if accuracy > best_accuracy:
+          best_model = m 
+          best_k = k 
+          best_accuracy = accuracy 
+      print(f"The best model is: {best_model}")  
+  
+The syntax is correct and the code produces a best model, but what is the 
+flaw in your friend's approach? 
+
+Code Authoring 
+^^^^^^^^^^^^^^
+
+1. You want to develop an Artificial Neural Network to classify images as containing 
+   cats, dogs or neither. You have a set of labeled images that grey scale (i.e., one 
+   channel of intensity with value between 0 and 255) of size 1000x728 pixels.
+
+   Your network should be a dense (i.e., full-connected) network with three layers: 
+   one input layer, one hidden layer, and one output layer. Write the code to construct 
+   such an ANN using the Keras API. In this section, you do not need to train your model, 
+   only define the archtiecture. You can use the following code snippets, but note, you 
+   may not need or want to use all of them. 
+
+   .. code-block:: python3
+
+    Dense(?, input_dimension=(?), activation=?)
+    
+    from tensorflow.keras import Sequential
+
+    m = Sequential()
+
+    image_size = 1000*728
+
+    image_dimension = 1000*728*255
+
+    from tensorflow.keras.layers import Dense
+
+    "tanh", "relu", "softmax", optimizer="adam", loss='categorical_crossentropy'
+    
+    from tensorflow.keras.utils import to_categorical
+
+    m.add(?)
+
+2. You want to build a model to detect whether AI was used on an exam, which is not 
+   allowed and constitutes academic dishonesty (cheating).
+
+   Write code to perform a hyperparameter search for the optimal Random Forest classifier 
+   model. Your search should use explore a space that includes random forests containing 
+   anywhere from 2 to 100 trees, that have a maximum depth between 2 and 10 levels and 
+   that consider leaves with a minimum set of samples between 2 and 5.   
+
+   What is the best metric to use for this use case? Explain your answer and optimize 
+   your grid search for this metric. 
+
+   You may want to use some of (but not all of) the following code snippets in your solution: 
+
+  .. code-block:: python3
+
+    gscv = GridSearchCV(model, param_grid, cv=?, n_jobs=4, scoring=?)
+
+    from sklearn.tree import DecisionTreeClassifier
+
+    param_grid = { . . . } 
+    
+    "min_samples_leaf": np.arange(start=?, stop=?)
+
+    gscv.fit(X_train, y_train)
+    
+    from sklearn.ensemble import RandomForestClassifier
+
+    model = DecisionTreeClassifier(random_state=1).fit(X_train, y_train)
+    
+    model = RandomForestClassifier(random_state=?)
+    
+    from sklearn.model_selection import GridSearchCV
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, stratify=y, random_state=1)
+    
+    "n_estimators": np.arange(start=?, stop=?, step=?)
+    
+    "max_depth": np.arange(start=2, stop=20),
+
+  
+
+
 

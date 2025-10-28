@@ -10,3 +10,4 @@ Unit 3: Advanced Techniques for Machine Learning
    project01_summary
    exam_study_guide
    cheatsheet
+   mlops

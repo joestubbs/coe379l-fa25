@@ -430,7 +430,8 @@ It finished first runner-up in the ImageNet annual competition (ILSVRC) in 2014.
 
 VGGNet has two variants: VGG16 and VGG19. 
 Here, 16 and 19 refer to the total number of convolution and fully connected layers present in each 
-variant of the architecture.
+variant of the architecture; for example, in VGG-16 there are 13 convolutional layers and 
+3 full-connected layers, for a total of 16. 
 
 VGGNet stood out for its simplicity and the standard, repeatable nature of its blocks. 
 Its main innovation over standard CNNs was simply its increased depth (number of layers). Otherwise, it 

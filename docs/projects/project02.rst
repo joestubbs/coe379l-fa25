@@ -3,7 +3,7 @@ Project 02 - 20 Points (with 2 possible bonus points)
 
 **Date Assigned:** Thursday, October 16, 2025.
 
-**Due Date:** Thursday, November 6, 2025, 5 pm CST.
+**Due Date:** Thursday, November 13, 2025, 5 pm CST.
 
 **Group Assignment:** Students can work individually or in groups of two on this assignment. 
 When working in groups, we expect both students to contribute equally to all aspects of the 

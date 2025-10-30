@@ -46,10 +46,10 @@ building and deploying new ML applications. At a high-level, the life cycle cons
    for example, by evaluating your model against a separate hold out dataset that is specifically 
    engineered to ensure that it is representative and inclusive of all perspectives. 
 4. *Model deployment:* after a model version has been validated, we are ready to package and 
-   deploy it, either to a pre-production environment such as a test of QA environment, or to 
+   deploy it, either to a pre-production environment such as a test or QA environment, or to 
    production. 
 5. *Integration Testing, Acceptance Testing, and other automated testing:* typically, the trained 
-   mode is first deployed to a test or QA environment where automated tests are run. 
+   model is first deployed to a test or QA environment where automated tests are run. 
    Various kinds of tests could be run, including integration tests (to test the ML model's 
    integration into the rest of the application), functional or acceptance testing, to evaluate 
    high level functions of the application, and performance and/or load testing, to ensure the application 
@@ -137,8 +137,8 @@ advantages enjoyed by all HTTP/microservice architectures:
 
 What do we need to build an ML inference server? The basic ingredients are as follows: 
 
-1. *Serialize and deserialize trained models* --- we saw how to do this with sklearn, but we will quickly 
-   see how to do this with Keras. 
+1. *Serialize and deserialize trained models* --- with sklearn one can use the Python pickle module, 
+   but we will quickly see how to do this with Keras. 
 2. *Write the inference server code* --- we will see two methods for doing this, including a "generic" 
    method using flask and a Tensorflow-specific method (Tensorflow Serving)
 3. *Package the server as a docker container image* --- This will simplify deployment and make our server 
@@ -149,9 +149,12 @@ What do we need to build an ML inference server? The basic ingredients are as fo
 
 Serializing and Deserializeing Tensorflow Models
 ------------------------------------------------
-In Unit 2 we showed how to use the Python pickle module to serialize a skelearn model. For serializing a 
-Tensorflow model, we recommend using the built in ``model.save()`` method. In general, attempting to use
-pickle on Tensorflow models can lead to errors related to model objects not being pickleable. 
+The Python pickle module can be used to serialize a skelearn model. If you are interested in 
+this topic, see the supplement on `Model Persistence with Pickle <pickle.html>`_. 
+
+For serializing a Tensorflow model, we recommend using the built in ``model.save()`` method. 
+In general, attempting to use pickle on Tensorflow models can lead to errors related to model 
+objects not being pickleable. 
 
 We'll illustrate the techniques in this section using a model trained against the MNIST fashion
 dataset. Recall that dataset consisted of 28x28 grey scale images containing different articles of clothing, 
@@ -311,6 +314,15 @@ To being, we'll create a new directory, ``models``, and move our ``clothes.keras
 We'll create a file called ``api.py`` at the same level as the ``models`` directory. The ``api.py`` 
 will contain our Flask code. 
 
+We need to install the Flask Python package into our containers. To do that, use the following
+``pip`` command from within a terminal inside your Jupyter notebook server: 
+
+.. code-block:: python3 
+
+   pip install Flask==3.1.2
+
+Remember, you only need to run this command once. 
+
 We'll implement two routes, a ``GET`` route and a ``POST`` route, as per the table above. 
 The GET will just return information about the model in a JSON object. 
 
@@ -365,14 +377,14 @@ Then, in a separate terminal, one can use ``curl`` to test the endpoint:
 
 
 For more details on Flask, see COE 332 
-`notes <https://coe-332-sp23.readthedocs.io/en/latest/unit04/intro_to_flask.html>`_ or the official
+`notes <https://coe-332-sp25.readthedocs.io/en/latest/unit06/intro_to_flask.html>`_ or the official
 `documentation <https://flask.palletsprojects.com/en/3.0.x/>`_. 
 
 
 .. note:: 
 
-   The class Jupyter container image does not include the Flask package. If you want, you 
-   can install it with ``pip install Flask==3.1.0``
+   The class Jupyter container image does not include the Flask package. You 
+   can install it with ``pip install Flask==3.1.2``
 
 Packaging the Inference Server with Docker 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -383,6 +395,10 @@ We'll use a Dockerfile for that. The basic steps are:
 2) Install the Flask library 
 3) Copy our source code, ``api.py`` 
 4) Set the default command in the container to run our program. 
+
+If you need a refresher on Docker, see the COE 
+332 `notes <https://coe-332-sp25.readthedocs.io/en/latest/unit05/containers_1.html>`_. 
+
 
 Here is the Dockerfile that does that: 
 
@@ -397,8 +413,6 @@ Here is the Dockerfile that does that:
 
 
    CMD ["python", "api.py"]
-
-If you need a refresher on Docker, see the COE 332 `notes <https://coe-332-sp23.readthedocs.io/en/latest/unit05/containers_1.html>`_. 
 
 To build our image, we use the ``docker build`` command. We'll use the ``-t`` flag to tag it with a name. 
 I'll use ``jstubbs/ml-clothes-api``. You'll want to change the username ``jstubbs`` to your own username 

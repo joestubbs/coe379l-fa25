@@ -354,9 +354,16 @@ about our model.
       app.run(debug=True, host='0.0.0.0')
 
 The code at the bottom just runs the Flask development server whenever our Python model ``api.py``
-is invoked from the command line. Thus, to run the server, one needs to install Flask and then 
-execute
+is invoked from the command line. 
 
+.. note:: 
+
+   If you prefer command-line tools, you may wish to install ``vim`` and ``lsof`` using apt:
+
+   ``apt install vim lsof``
+
+
+To run the server, one needs to install Flask and then execute
 
 .. code-block:: console
 

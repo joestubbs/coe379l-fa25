@@ -97,7 +97,7 @@ Git Repository
 The project products should be saved into an organized git repository, similar to the way 
 we have done the other projects. The initial proposal should be among the documents included 
 in your git repository, and it should be there by the initial proposal due date 
-(Thursday, April 17). 
+(Tuesday, November 25). 
 
 Final Report and Video
 -----------------------
@@ -157,7 +157,7 @@ a dataset/topic/technology, etc., that is of interest to you.
    One option would be to use the dataset from Project 2; alternatively, you could find a separate dataset 
    of interest to you. 
    Compare the performance these methods compare to those we studied in Unit 2.
-2. Perform sentiment analysis, text summarization or other classical NPL tasks on commonly available
+2. Perform sentiment analysis, text summarization or other classical NLP tasks on commonly available
    datasets such as social media postings, product reviews, articles or papers, etc. 
    What model(s)/techniques you will use? You might consider using LLMs/transformers as part of this 
    project. How will you evaluate how well your model performs? 

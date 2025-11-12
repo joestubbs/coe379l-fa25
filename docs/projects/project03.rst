@@ -3,7 +3,7 @@ Project 03 - 35 Points
 
 **Date Assigned:** Thursday, November 13, 2025. 
 
-**Initial Proposal Due Date:** Tuesday, November 25, 2025. 
+**Initial Proposal Due Date:** Monday, December 1, 2025. 
 
 **Due Date:** Friday, December 12, 2025 at 5 PM CST (The day of the Final Exam for this class)
 **Use of AI.** You are allowed to use AI tools like ChatGPT to help you with the coding portion 
@@ -97,7 +97,7 @@ Git Repository
 The project products should be saved into an organized git repository, similar to the way 
 we have done the other projects. The initial proposal should be among the documents included 
 in your git repository, and it should be there by the initial proposal due date 
-(Thursday, April 17). 
+(Monday, December 1, 2025). 
 
 Final Report and Video
 -----------------------

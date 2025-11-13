@@ -213,14 +213,25 @@ For more details and alternatives, see the documentation for Remote SSH [1].
     Host login-proxy
         HostName student-login.tacc.utexas.edu
         User tacc_username
-        ...Other options...
+        ...Other options (optional)...
 
     Host joe-coeML-vm
         User ubuntu
         HostName 129.114.xx.xx
+        IdentityFile ~/.ssh/id_rsa
         ProxyCommand ssh -o 'ForwardAgent yes' student-login.tacc.utexas.edu 'ssh-add && nc %h %p'
 
-Here we have added two entries, one for the login proxy and one for the actual student VM. Each entry instructs 
+Here we have added two entries, one for the login proxy and one for the actual student VM. 
+
+.. note:: 
+
+    You need a public (floating) IP address for your server here, i.e., one that starts with 129.114. 
+    not one that starts with 192.168, 172.., etc. If the command ``ip addr`` is not returning the 129.114 
+    address, look on the ``student-login`` server for a file ``~/.ssh/config`` which should list your IP 
+    there. 
+
+
+Each entry instructs 
 SSH about how to connect to that host. Once entered, SSH'ing to a host in the config is as easy as using the alias:
 
 .. code-block:: bash 
@@ -231,7 +242,7 @@ Notes:
   * In the first line, the part after ``Host`` is the alias.
     You can use any name you like, but it should be memorable.
   * The string after ``User`` should be the remote account to connect with.
-  * The part after ``HostName`` (i.e., the ``129.114.xx.xx``) should  be the actual IP address of the server.
+  * The part after ``HostName`` (i.e., the ``129.114.xx.xx``) should  be the actual IP address of your student server.
 
 4. Now, in a VSCode window, open the Command Pallette (Ctrl+Shift+P) and type 
 "remote-ssh: Connect to host", and then:
@@ -267,7 +278,7 @@ complete listing.
     :alt: Remote listing of files on the VM
 
     Remote listing of files on the VM
-
+    
 
 Using Jupyter Notebooks
 -----------------------

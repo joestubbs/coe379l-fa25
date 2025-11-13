@@ -512,40 +512,34 @@ Intuitively, the dot product is used because it computes a similarity between tw
 In the real definition, we also apply an activation function (*softmax*) to convert the raw 
 values into a normalized vector that can be interpreted as a probability distribution. 
 
-This is the basic intuition. If you read the original paper, or if you inspect a real-world, 
-transformer architecture closely, you will see that in fact each input vector, :math:`v_t`, plays three 
-distinct roles in the attention component: that of a *query*, a *key* and a *value*, to perform 
-the following computations, respectively:
+This is the basic intuition. In the original paper, you will see that in fact each input vector, 
+:math:`v_t`, plays three distinct roles in the attention component: that of a *query*, a *key* 
+and a *value*, to perform the following computations, respectively:
 
-1. compare it to every other vector to establish the weights for its own output
-2. compare it to every other vector to establish the weights for the other outputs
-3. use it as part of the weighted sum to compute each output vector once the weights 
-   have been established
+1. **Query (Q)**: What information this vector is *looking for*, i.e., what information it wants to 
+   attend to. 
+2. **Key (K)**: What information this vector *has to offer*, i.e., what can it provide to other vectors.
+3. **Value (V)**: The information that would be passed along if this token is attended to.
 
-This is largely a "trick" to enable more efficient computations of the attention matrices. We 
-won't go into more details here, but if you are interested, more details can be found in the 
-original paper or in a number of online resources. 
+.. By way of example to motivate the *query*, *key* and *value* notions, we can think of the challenge of 
+.. determining which features are most important as being similar to search. Suppose we have a giant database 
+.. of employees, both information about them and an image of them, 
+.. and a user enters a search query to find a specific employee of interest. We can imagine that, for each 
+.. employee in the database, we have a set of important information, which we can call "keys" (:math:`k_i`), 
+.. in the database, things like:
 
-.. 
-    To motivate the *query*, *key* and *value* notions, we can think of the challenge of 
-    determining which features are most important as being similar to search. 
-    Suppose we have a giant database of employees, both information about them and an image of them, 
-    and a user enters a search query to find a specific employee of interest. We can imagine that, for each 
-    employee in the database, we have a set of important information, which we can call "keys" (:math:`k_i`), 
-    in the database, things like:
-    
-    * Name, :math:`k_1`
-    * Age, :math:`k_2`
-    * Job title, :math:`k_3` 
-    * Department, :math:`k_4` 
-    * ...
+..     * Name, :math:`k_1`
+..     * Age, :math:`k_2`
+..     * Job title, :math:`k_3` 
+..     * Department, :math:`k_4` 
+..     * ...
 
-    When a user enters a search query, :math:`q`, what we can do is to try and compute how similar the 
-    :math:`q` is to each :math:`k_i`. We define a *similarity metric*, :math:`s(q, k)`, which returns a larger 
-    number for objects that are more similar to each other. 
-    We then associate the relevant object in the database, in this case, the image, 
-    with the value. If we think of :math:`q` and :math:`k` as vectors, we can use the dot product as the 
-    similarity metric. 
+.. When a user enters a search query, :math:`q`, what we can do is to try and compute how similar the 
+.. :math:`q` is to each :math:`k_i`. We define a *similarity metric*, :math:`s(q, k)`, which returns a larger 
+.. number for objects that are more similar to each other. 
+.. We then associate the relevant object in the database, in this case, the image, 
+.. with the value. If we think of :math:`q` and :math:`k` as vectors, we can use the dot product as the 
+.. similarity metric. 
 
 
 Tokenizer 

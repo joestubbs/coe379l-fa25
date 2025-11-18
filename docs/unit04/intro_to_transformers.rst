@@ -512,34 +512,7 @@ Intuitively, the dot product is used because it computes a similarity between tw
 In the real definition, we also apply an activation function (*softmax*) to convert the raw 
 values into a normalized vector that can be interpreted as a probability distribution. 
 
-This is the basic intuition. In the original paper, you will see that in fact each input vector, 
-:math:`v_t`, plays three distinct roles in the attention component: that of a *query*, a *key* 
-and a *value*, to perform the following computations, respectively:
-
-1. **Query (Q)**: What information this vector is *looking for*, i.e., what information it wants to 
-   attend to. 
-2. **Key (K)**: What information this vector *has to offer*, i.e., what can it provide to other vectors.
-3. **Value (V)**: The information that would be passed along if this token is attended to.
-
-.. By way of example to motivate the *query*, *key* and *value* notions, we can think of the challenge of 
-.. determining which features are most important as being similar to search. Suppose we have a giant database 
-.. of employees, both information about them and an image of them, 
-.. and a user enters a search query to find a specific employee of interest. We can imagine that, for each 
-.. employee in the database, we have a set of important information, which we can call "keys" (:math:`k_i`), 
-.. in the database, things like:
-
-..     * Name, :math:`k_1`
-..     * Age, :math:`k_2`
-..     * Job title, :math:`k_3` 
-..     * Department, :math:`k_4` 
-..     * ...
-
-.. When a user enters a search query, :math:`q`, what we can do is to try and compute how similar the 
-.. :math:`q` is to each :math:`k_i`. We define a *similarity metric*, :math:`s(q, k)`, which returns a larger 
-.. number for objects that are more similar to each other. 
-.. We then associate the relevant object in the database, in this case, the image, 
-.. with the value. If we think of :math:`q` and :math:`k` as vectors, we can use the dot product as the 
-.. similarity metric. 
+This is the basic intuition. In the supplement below, we give more details about computing attention. 
 
 
 Tokenizer 
@@ -565,10 +538,10 @@ Option 1 produces the largest index space, as every word gets a unique integer, 
 a large number of words (hundreds of thousands in the English language, for example). Option 2 
 produces the smallest index space, as the number of unique characters is relatively small (26 
 English letters, ignoring capitalization, plus punctutation characters). But option 2 produces 
-much longer sequences and may 
+much longer sequences which may create issues learning patterns from the data. 
 
 The third option is perhaps the method that is most commonly in use today, and it represents a 
-compromise between options 1 and 2. The idea common word fragments, including punctuation, so 
+compromise between options 1 and 2. The idea is to use common word fragments, including punctuation, so 
 that very similar words with the same fragments map to the same index. 
 
 For example, this type of tokenizer might map the word "jumping" to two word fragments, 
@@ -664,6 +637,7 @@ in many cases, including:
 * Computer Vision (e.g., object detection, image classification, etc.)
 * Audio analysis (e.g., voice/speech recognition, generative music, etc.)
 * Multi-modal processing; i.e., multiple types of simultaneous input (e.g., voice and mouse gestures)
+* Time-series forecasting, e.g., computing future energy load in smart grids. 
 
 In this section 
 we survey some of the major advances and how they have been enabled with transformers. 
@@ -721,7 +695,6 @@ There have been attempts to empirically study different aspects of the architect
 paper along these lines is "Training Compute-Optimal Large Language Models", from 2022 [3], sometimes 
 referred to as the "Chinchilla paper" after the model they introduce. The paper establishes that current 
 models, such as GPT-3, may be undertraining for the model architectures they are using.  
-
 
 
 Some Important Transformer Models
@@ -794,6 +767,76 @@ and history of various building on campus.
 
 While not all the details are known, the computing costs to pre-train these models are likely also very large, 
 with some notable exceptions. For instance, some estimate the cost to train GPT-3 to be in the $10Ms. 
+
+Open-Weight Transformer Models
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+While OpenAI and other prominent labs have stopped publishing details about their models,
+a sizable portion of the community has put significant effort into developing open-weight transformer models, 
+that is, models for which all details are known and the weights can be downloaded via some open-source 
+license. 
+
+* **Meta — Llama 3** (8B / 70B family) -- Meta’s major publicly-distributed family
+* **Meta — Llama 4** (Scout / Maverick) -- Major leap in long-context capability (MoE architecture)
+* **Mistral — Mixtral-8x7B** (Mixtral) -- Sparse Mixture-of-Experts (SMoE) Mixtral 8x7B
+* **Mistral — Mistral 7B** -- Mistral’s small/medium families
+* **TII — Falcon-180B** -- Large (180B) open-weight decoder model trained on trillions of tokens;
+
+Note that the Llama models are technically not open source -- their licenses have restrictions, for example, 
+on companies over certain sizes. But the weights and training code are openly available. 
+
+
+Supplement: Computing Attention 
+--------------------------------
+
+We mentioned that to formulate the concept of attention, we associate a vector, 
+:math:`v_t`, to each element :math:`s_t` in our sequence. The actual computation 
+involves three main components: Queries (Q), Keys (K), and Values (V). The intuition 
+behind each component is as follow:
+
+1. **Query (Q)**: What information this vector is *looking for*, i.e., what information it wants to 
+   attend to. 
+2. **Key (K)**: What information this vector *has to offer*, i.e., what can it provide to other vectors.
+3. **Value (V)**: The information that would be passed along if this token is attended to.
+
+There are three learned weight matrices, :math:`W^Q`, :math:`W^K`, :math:`W^V`, corresponding to the 
+three components above. For a given input, :math:`X`, all three values are computed from the weight matrices, as 
+follows: 
+
+.. math:: 
+
+  Q = X\cdot W_Q \\
+  K = X \cdot W_K \\
+  V = X\cdot W_V
+
+Then, for the :math:`i^{th}` token in the sequence, the attention scores are computed using a dot product 
+of the :math:`i^{th}` query vector with the 
+
+.. math::
+
+  scores = Q \cdot K^T
+
+We then apply softmax to scale the values
+
+.. By way of example to motivate the *query*, *key* and *value* notions, we can think of the challenge of 
+.. determining which features are most important as being similar to search. Suppose we have a giant database 
+.. of employees, both information about them and an image of them, 
+.. and a user enters a search query to find a specific employee of interest. We can imagine that, for each 
+.. employee in the database, we have a set of important information, which we can call "keys" (:math:`k_i`), 
+.. in the database, things like:
+
+..     * Name, :math:`k_1`
+..     * Age, :math:`k_2`
+..     * Job title, :math:`k_3` 
+..     * Department, :math:`k_4` 
+..     * ...
+
+.. When a user enters a search query, :math:`q`, what we can do is to try and compute how similar the 
+.. :math:`q` is to each :math:`k_i`. We define a *similarity metric*, :math:`s(q, k)`, which returns a larger 
+.. number for objects that are more similar to each other. 
+.. We then associate the relevant object in the database, in this case, the image, 
+.. with the value. If we think of :math:`q` and :math:`k` as vectors, we can use the dot product as the 
+.. similarity metric. 
+
 
 
 Additional References

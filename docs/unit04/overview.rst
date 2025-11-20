@@ -14,3 +14,4 @@ tasks and benchmarks by working with some specific examples.
    :maxdepth: 1
 
    intro_to_transformers
+   hands_on_transformers

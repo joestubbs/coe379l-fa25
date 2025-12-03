@@ -1,14 +1,13 @@
 More on RAG 
-=====================
+============
 
 In the previous RAG lecture, we saw how combining retrieval with a language model can produce more accurate, context-specific responses. 
-In this follow-up, we dig deeper: we’ll unpack the main architectural components of a full-featured RAG system, understand why and how documents are processed before retrieval, explore more advanced retrieval paradigms (like graph-based RAG), and survey modern frameworks that make building RAG systems easier — including tools to scale, manage complexity, and support hybrid data sources.
+In this follow-up, we dig deeper: we’ll unpack the main architectural components of a full-featured RAG system, understand why and how documents are processed before retrieval, explore more advanced retrieval paradigms (like graph-based RAG), and survey modern frameworks that make building RAG systems easier.
 
 By the end of this module, students should be able to:
 
 * Understand each component in a RAG pipeline;
 * Learn preprocessing for your documents (splitting, chunking, embedding, indexing);
-* Know trade-offs between retrieval approaches;
 * Recognize when to use vector-based or graph-based retrieval;
 * Use frameworks to build maintainable, extensible RAG applications;
 
@@ -51,18 +50,18 @@ This is made possible through a set of architectural components that operate tog
 
 .. figure:: ./images/RAG.png
     :width: 310px
-    :align: left
+    :align: center
 
 
 Data sources and knowledge bases
 ---------------------------------
-The knowledge base can both contain structutred and unstructured data. It could be in a form of csv files with rows and columns
+The knowledge base can both contain structured and unstructured data. It could be in a form of csv files with rows and columns
 or it could be a text document like PDF or HTML files. You can also connect your knowledge base to streaming data sources or APIs.
+
 A raw document (e.g., a long PDF, research paper, book chapter) may be thousands of words — far exceeding what an embedding model or LLM can reasonably handle at once.
-If you treat entire documents as single units, retrieval will likely retrieve entire documents — which are large, unwieldy, and may contain a lot of irrelevant data, drowning the relevant bits.
-Instead, you divide documents into smaller, semantically coherent **chunks** of text (e.g. 500–2,000 characters, or number-of-sentences).
-Each chunk is embedded separately and stored in the vector store. Then retrieval returns just a handful of chunks relevant to the query. This improves both precision (less irrelevant text) and efficiency (fewer tokens, faster inference).
-Thus — **document splitting** is fundamental to making RAG practical, scalable, and precise.
+If you treat entire documents as single units, retrieval will likely retrieve entire documents — which are large, and may contain a lot of irrelevant data, covering the relevant information.
+Instead, if you divide documents into smaller, semantically coherent **chunks** of text (e.g. 500–2,000 characters, or number-of-sentences), then retrieval returns just a handful of chunks relevant to the query. This improves both precision (less irrelevant text) and efficiency (fewer tokens, faster inference).
+Thus — **document splitting** or **chunking** is fundamental to making RAG practical, scalable, and precise.
 
 In the last lecture, we used several Tapis code snippets as documents and generated embeddings for them.
 In this session, we will learn how to split these documents into smaller chunks by grouping sentences into fixed-size token blocks, preparing them for more efficient retrieval and RAG processing.

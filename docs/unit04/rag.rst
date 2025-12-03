@@ -212,8 +212,7 @@ Next, to view chunks and its associated embedding you can use the code below
     "Tapis is an NSF-funded web-based API framework for securely managing computational workloads across infrastructure and institutions, so that experts can focus on their research instead of the technology needed to accomplish it.",
     "As part of work funded by the National Science Foundation starting in 2019, Tapis is delivering a version 3 (“v3”) of its platform with several new capabilities, including a multi-site Security Kernel, Streaming Data APIs, and first-class support for containerized applications.",
     "Python code for generating a Tapis token: from tapipy.tapis import Tapis ...",  # shortened for example
-]
-
+    ]
     rag_chunks = []
 
     for doc in tapis_documents:
@@ -279,10 +278,10 @@ Graph RAG can help with context coherence, relational reasoning, and reduce hall
 This knowledge graph is built using the Tapis readthedocs. There are several microservices with the Tapis framework that have relationships with each other.
 
 
-Popular RAG Frameworks
+Popular RAG Framework
 -----------------------
 
-`LangChain <https://docs.langchain.com/oss/python/langchain/overview>_` 
+`LangChain <https://docs.langchain.com/oss/python/langchain/overview>`_ 
 
 The most popular framework that make building RAG applications super easy. 
 
@@ -328,18 +327,20 @@ LangaChain can be integrated with OpenAI, Anthropic, `Sambanova <https://sambano
     user_question = input("Enter your question: ")
     answer = ask_question(user_question)
     print("\nAssistant:", answer)
+      
         
+.. code-block:: python3 
+    
+    Output -> 
+    Enter your question:  what is Tapis?
 
-Output -> 
-Enter your question:  what is Tapis?
+    Assistant: Tapis can refer to different things, but here are a few possible meanings:
 
-Assistant: Tapis can refer to different things, but here are a few possible meanings:
+    1. Tapis (textile): Tapis is a type of traditional textile art form that originated in Southeast Asia, particularly in Indonesia and Malaysia. It is a kind of woven cloth, often made from silk or cotton, that features intricate designs and patterns. Tapis textiles are highly valued for their beauty and cultural significance.
 
-1. Tapis (textile): Tapis is a type of traditional textile art form that originated in Southeast Asia, particularly in Indonesia and Malaysia. It is a kind of woven cloth, often made from silk or cotton, that features intricate designs and patterns. Tapis textiles are highly valued for their beauty and cultural significance.
+    2. Tapis (software): Tapis is also the name of a software framework designed for building scalable, distributed applications. It is an open-source platform that provides a set of tools and APIs for developing data-intensive applications, particularly in the fields of science and engineering.
 
-2. Tapis (software): Tapis is also the name of a software framework designed for building scalable, distributed applications. It is an open-source platform that provides a set of tools and APIs for developing data-intensive applications, particularly in the fields of science and engineering.
+    3. Tapis (French word): In French, "tapis" means "carpet" or "rug". It can also refer to a tapestry or a woven wall hanging.
 
-3. Tapis (French word): In French, "tapis" means "carpet" or "rug". It can also refer to a tapestry or a woven wall hanging.
-
-Without more context, it's difficult to determine which definition is most relevant. If you have any additional information or clarification, I'd be happy to try and provide a more specific answer.
+    Without more context, it's difficult to determine which definition is most relevant. If you have any additional information or clarification, I'd be happy to try and provide a more specific answer.
 

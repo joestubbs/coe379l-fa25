@@ -1,8 +1,11 @@
 More on RAG 
 ============
 
-In the previous RAG lecture, we saw how combining retrieval with a language model can produce more accurate, context-specific responses. 
-In this follow-up, we dig deeper: we’ll unpack the main architectural components of a full-featured RAG system, understand why and how documents are processed before retrieval, explore more advanced retrieval paradigms (like graph-based RAG), and survey modern frameworks that make building RAG systems easier.
+In the previous RAG lecture, we saw how combining retrieval with a language model can produce more 
+accurate, context-specific responses. In this follow-up, we dig deeper: we’ll unpack the main 
+architectural components of a full-featured RAG system, understand why and how documents are 
+processed before retrieval, explore more advanced retrieval paradigms (like graph-based RAG), and 
+survey modern frameworks that make building RAG systems easier.
 
 By the end of this module, students should be able to:
 
@@ -45,8 +48,9 @@ Examples of Retrieval-Augmented Generation (RAG)
 Core Components of a RAG System 
 ================================
 
-RAG empowers an LLM to produce grounded, context-aware responses by pulling in information from outside sources. 
-This is made possible through a set of architectural components that operate together in a defined workflow. Let's take a closer look at each compoment.
+RAG empowers an LLM to produce grounded, context-aware responses by pulling in information from 
+outside sources. This is made possible through a set of architectural components that operate 
+together in a defined workflow. Let's take a closer look at each compoment.
 
 .. figure:: ./images/RAG.png
     :width: 310px
@@ -54,23 +58,35 @@ This is made possible through a set of architectural components that operate tog
 
     RAG workflow diagram.
 
-In this RAG workflow, the user submits a query, which is first sent to a retriever. The retriever performs a semantic search over a vector database containing embeddings generated from the knowledge base. It returns the most relevant documents to the retriever, which then sends both the user’s original question and the retrieved documents to the LLM. The LLM uses this combined context to generate an informed response, which is finally delivered back to the user.
+In this RAG workflow, the user submits a query, which is first sent to a retriever. The retriever 
+performs a semantic search over a vector database containing embeddings generated from the knowledge 
+base. It returns the most relevant documents to the retriever, which then sends both the user’s 
+original question and the retrieved documents to the LLM. The LLM uses this combined context to 
+generate an informed response, which is finally delivered back to the user.
 
 
 Data sources and Knowledge base
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The knowledge base can both contain structured and unstructured data. It could be in a form of CSV files with rows and columns
-or it could be a text document like PDF or HTML files. You can also connect your knowledge base to streaming data sources or APIs.
-The documents in knowlege base be preproceed and convereted to embeddings for the retrieval to work efficiently. 
+The knowledge base can contain both structured and unstructured data. It could be in the form of CSV 
+files with rows and columns, or it could be text documents such as PDF or HTML files. You can also 
+connect your knowledge base to streaming data sources or APIs. The documents in a knowlege base be 
+preproceed and convereted to embeddings for the retrieval to work efficiently. 
 
-A raw document (e.g., a long PDF, research paper, book chapter) may be thousands of words — far exceeding what a LLM can reasonably handle at once.
-If you treat entire documents as single units, retrieval will likely retrieve entire documents — which are large, and may contain a lot of irrelevant data, hiding the pertinent details.
-Instead, if you divide documents into smaller, **semantically coherent chunks** of text (e.g. 500–2,000 characters, or number-of-sentences), then retrieval returns just a handful of chunks relevant to the query. This improves both precision (less irrelevant text) and efficiency (fewer tokens, faster inference) of the LLM's generated response.
-Thus — **document splitting** or **chunking** is fundamental to making RAG practical, scalable, and precise.
+A raw document (e.g., a long PDF, research paper, book chapter) may be thousands of words — far 
+exceeding what a LLM can reasonably handle at once. If you treat entire documents as single units, 
+retrieval will likely retrieve entire documents — which are large, and may contain a lot of 
+irrelevant data, hiding the pertinent details. Instead, if you divide documents into smaller, 
+**semantically coherent chunks** of text (e.g. 500–2,000 characters, or number-of-sentences), then 
+retrieval returns just a handful of chunks relevant to the query. This improves both precision 
+(less irrelevant text) and efficiency (fewer tokens, faster inference) of the LLM's generated 
+response. Thus, **document splitting** or **chunking** is fundamental to making RAG practical, 
+scalable, and precise.
 
-In the last lecture, we used several Tapis code generation snippets as documents and generated embeddings for them.
-In this section, we will learn how to split these documents into smaller chunks by grouping sentences into fixed-size token blocks, preparing them for more efficient retrieval and RAG processing.
+In the last lecture, we used several Tapis code generation snippets as documents and generated 
+embeddings for them. In this section, we will learn how to split these documents into smaller 
+chunks by grouping sentences into fixed-size token blocks, preparing them for more efficient 
+retrieval and RAG processing.
 
 .. code-block:: python3 
 

@@ -11,8 +11,7 @@ Overall the class did an excellent job!
 * 19+ (7 projects): (19.5, 19.5), (19.5, 19.5), (19.5, 19.5), 19.5, 19.5, 19,  19,  
 * 18+ (2 projects): (18.5, 18.5), 18
 * 17+ (1 projects): 17
-* 14+ (1 projects): 14
-* 9+ (1 projects): 9
+
 
 Leader Board
 ^^^^^^^^^^^^

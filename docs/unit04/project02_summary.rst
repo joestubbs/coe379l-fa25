@@ -1,6 +1,8 @@
 Project 2 Summary 
 =================
 
+Grades
+^^^^^^^
 Overall the class did an excellent job! 
 
 28/34 were 19 or higher!
@@ -12,6 +14,8 @@ Overall the class did an excellent job!
 * 14+ (1 projects): 14
 * 9+ (1 projects): 9
 
+Leader Board
+^^^^^^^^^^^^
 * 1st place, +2 bonus: 1.00 accuracy  
 * 2nd place, +1 bonus: 0.9942 accuracy ---- Two groups! 
 * 3rd place:           0.9883 accuracy  
@@ -26,4 +30,6 @@ General Comments:
 2. Docker image was not public on Docker Hub
 
 3. README did not provide enough or clear instruction
+
+4. Late submission significantly affected the score.
 

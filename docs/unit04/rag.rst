@@ -77,26 +77,35 @@ In this section, we will learn how to split these documents into smaller chunks 
 
     import re
 
-    def chunk_text(text, max_tokens=100):
-        # Simple sentence split
-        sentences = re.split(r'(?<=[.!?]) +', text.strip())
-
+    def chunk_text(texts, max_tokens=100):
+        """
+        Split one or more texts into chunks based on sentence boundaries and a max token limit.
+        Accepts a single string or a list of strings.
+        """
+        # Ensure we have a list of texts
+        if isinstance(texts, str):
+            texts = [texts]
+        
         chunks = []
-        current_chunk = ""
 
-        for sentence in sentences:
-            # If adding this sentence exceeds the limit, start a new chunk
-            if len(current_chunk.split()) + len(sentence.split()) > max_tokens:
+        for text in texts:
+            # Split into sentences and remove any empty strings
+            sentences = [s for s in re.split(r'(?<=[.!?]) +', text.strip()) if s]
+            current_chunk = ""
+
+            for sentence in sentences:
+                if len(current_chunk.split()) + len(sentence.split()) > max_tokens:
+                    if current_chunk:  # avoid adding empty chunks
+                        chunks.append(current_chunk.strip())
+                    current_chunk = sentence
+                else:
+                    current_chunk += " " + sentence if current_chunk else sentence
+
+            if current_chunk:
                 chunks.append(current_chunk.strip())
-                current_chunk = sentence
-            else:
-                current_chunk += " " + sentence
-
-        # Add the last chunk
-        if current_chunk:
-            chunks.append(current_chunk.strip())
-
+        
         return chunks
+
 
 This code defines a simple text-chunking function that splits a long passage into manageable pieces based on a maximum token (word) limit. It first divides the text into sentences, then iteratively groups those sentences into chunks without exceeding the specified token count. 
 When adding a sentence would surpass the limit, a new chunk is started. Finally, the function returns a list of all generated text chunk. 
@@ -104,20 +113,23 @@ When adding a sentence would surpass the limit, a new chunk is started. Finally,
 
 .. code-block:: python3 
 
-        tapis_documents = [
+    tapis_documents = [
         "Tapis is an NSF-funded web-based API framework for securely managing computational workloads across infrastructure and institutions, so that experts can focus on their research instead of the technology needed to accomplish it.",
         "As part of work funded by the National Science Foundation starting in 2019, Tapis is delivering a version 3 (“v3”) of its platform with several new capabilities, including a multi-site Security Kernel, Streaming Data APIs, and first-class support for containerized applications.",
         "Python code for generating a Tapis token: from tapipy.tapis import Tapis ...",  # shortened for example
-        ]
+    ]
 
-        # Step 1: Chunk the document
-        chunks = chunk_text(doc)
-        print(chunks)
+    all_chunks = []
+    for doc in tapis_documents:
+        all_chunks.extend(chunk_text(doc, max_tokens=20))
+
+    print(all_chunks)
 
 
 .. code-block:: python3 
 
-    Output - > ['Tapis is an NSF-funded web-based API framework for securely managing computational workloads across infrastructure and institutions, so that experts can focus on their research instead of the technology needed to accomplish it. As part of work funded by the National Science Foundation starting in 2019, Tapis is delivering a version 3 (“v3”) of its platform with several new capabilities, including a multi-site Security Kernel, Streaming Data APIs, and first-class support for containerized applications.ine.']
+    ['Tapis is an NSF-funded web-based API framework for securely managing computational workloads across infrastructure and institutions, so that experts can focus on their research instead of the technology needed to accomplish it.', 'As part of work funded by the National Science Foundation starting in 2019, Tapis is delivering a version 3 (“v3”) of its platform with several new capabilities, including a multi-site Security Kernel, Streaming Data APIs, and first-class support for containerized applications.', 'Python code for generating a Tapis token: from tapipy.tapis import Tapis ...']
+
 
 The output shows a list of text chunks generated.
 
@@ -197,10 +209,10 @@ Next, to view chunks and its associated embedding you can use the code below
 
     if __name__ == "__main__":
     tapis_documents = [
-        "Tapis is an NSF-funded web-based API framework ...",
-        "As part of work funded by the National Science Foundation ...",
-        "Python code for generating a Tapis token: from tapipy.tapis import Tapis ..."
-    ]
+    "Tapis is an NSF-funded web-based API framework for securely managing computational workloads across infrastructure and institutions, so that experts can focus on their research instead of the technology needed to accomplish it.",
+    "As part of work funded by the National Science Foundation starting in 2019, Tapis is delivering a version 3 (“v3”) of its platform with several new capabilities, including a multi-site Security Kernel, Streaming Data APIs, and first-class support for containerized applications.",
+    "Python code for generating a Tapis token: from tapipy.tapis import Tapis ...",  # shortened for example
+]
 
     rag_chunks = []
 
@@ -246,9 +258,9 @@ The model (e.g., GPT-style or other LLM) receives the embeddings from user's que
 
 .. note::
 
-When do we use Vector-based RAG vs Graph-based RAG?
-Vector-based RAG works best for searching through large amounts of unstructured data like documents or code. For example, a system that answers questions from a company’s knowledge base uses vector search to find relevant passages quickly. 
-Graph-based RAG is better when connections between pieces of information matter, allowing reasoning across linked data—for instance, a biomedical knowledge graph that finds relationships between drugs, genes, and diseases.
+    When do we use Vector-based RAG vs Graph-based RAG?
+    Vector-based RAG works best for searching through large amounts of unstructured data like documents or code. For example, a system that answers questions from a company’s knowledge base uses vector search to find relevant passages quickly. 
+    Graph-based RAG is better when connections between pieces of information matter, allowing reasoning across linked data—for instance, a biomedical knowledge graph that finds relationships between drugs, genes, and diseases.
 
 
 Graph-based RAG (Graph RAG)

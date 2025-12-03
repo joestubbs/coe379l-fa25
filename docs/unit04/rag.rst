@@ -1,5 +1,5 @@
-More on RAG 
-============
+More on Retrieval-Augmented Generation (RAG)
+=======================================
 
 In the previous RAG lecture, we saw how combining retrieval with a language model can produce more accurate, context-specific responses. 
 In this follow-up, we dig deeper: we’ll unpack the main architectural components of a full-featured RAG system, understand why and how documents are processed before retrieval, explore more advanced retrieval paradigms (like graph-based RAG), and survey modern frameworks that make building RAG systems easier.
@@ -12,8 +12,8 @@ By the end of this module, students should be able to:
 * Use frameworks to build maintainable, extensible RAG applications;
 
 
-Examples of Retrieval-Augmented Generation (RAG)
--------------------------------------------------
+RAG Examples
+------------
 
 **Healthcare and Research Assistants**
 
@@ -43,33 +43,34 @@ Examples of Retrieval-Augmented Generation (RAG)
 
 
 Core Components of a RAG System 
-================================
+-------------------------------
 
 RAG empowers an LLM to produce grounded, context-aware responses by pulling in information from outside sources. 
 This is made possible through a set of architectural components that operate together in a defined workflow. Let's take a closer look at each compoment.
 
 .. figure:: ./images/RAG.png
-    :width: 310px
+    :width: 500px
     :align: center
 
     RAG workflow diagram.
 
-In this RAG workflow, the user submits a query, which is first sent to a retriever. The retriever performs a semantic search over a vector database containing embeddings generated from the knowledge base. It returns the most relevant documents to the retriever, which then sends both the user’s original question and the retrieved documents to the LLM. The LLM uses this combined context to generate an informed response, which is finally delivered back to the user.
+In this RAG workflow, the user submits a query, which is first sent to a retriever. The retriever performs a semantic search over a vector database containing embeddings generated from the knowledge base.
+It returns the most relevant documents to the retriever, which then sends both the user’s original question and the retrieved documents to the LLM. The LLM uses this combined context to generate an informed response, which is finally delivered back to the user.
 
 
-Data sources and Knowledge base
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Data sources and Knowledge base**
+
 
 The knowledge base can both contain structured and unstructured data. It could be in a form of CSV files with rows and columns
 or it could be a text document like PDF or HTML files. You can also connect your knowledge base to streaming data sources or APIs.
-The documents in knowlege base be preproceed and convereted to embeddings for the retrieval to work efficiently. 
+The documents in knowlege base should be preprocessed and convereted to embeddings for the Retriever to work efficiently. 
 
 A raw document (e.g., a long PDF, research paper, book chapter) may be thousands of words — far exceeding what a LLM can reasonably handle at once.
 If you treat entire documents as single units, retrieval will likely retrieve entire documents — which are large, and may contain a lot of irrelevant data, hiding the pertinent details.
 Instead, if you divide documents into smaller, **semantically coherent chunks** of text (e.g. 500–2,000 characters, or number-of-sentences), then retrieval returns just a handful of chunks relevant to the query. This improves both precision (less irrelevant text) and efficiency (fewer tokens, faster inference) of the LLM's generated response.
 Thus — **document splitting** or **chunking** is fundamental to making RAG practical, scalable, and precise.
 
-In the last lecture, we used several Tapis code generation snippets as documents and generated embeddings for them.
+In the last lecture, we used several Tapis code-generation snippets as documents and generated embeddings for them.
 In this section, we will learn how to split these documents into smaller chunks by grouping sentences into fixed-size token blocks, preparing them for more efficient retrieval and RAG processing.
 
 .. code-block:: python3 
@@ -123,12 +124,12 @@ The output shows a list of text chunks generated.
 
 
 **Embeddings (Vectorization)**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Now that we have chunks of fixed length created, we will create embeddings for each chunk. 
-Embeddings are the backbone of retrieval. Each chunk is turned into a numerical vector (an embedding) capturing semantic meaning.
 
-You will have to pre-pull the embedding model **nomic-embed-text** by exec-ing into the Ollama container and issuinng command
+Now that we have created chunks of fixed length, we will create embeddings for each chunk. 
+Embeddings are the backbone of retrieval. Each chunk is turned into a numerical vector (an embedding) capturing its semantic meaning in a given context.
+
+You will have to pre-pull the embedding model **nomic-embed-text** by exec-ing into the Ollama container and running a command
 
 .. code-block:: python3 
 
@@ -211,8 +212,7 @@ Next, to view chunks and its associated embedding you can use the code below
         print(f"Chunk {i+1}:\n{c['chunk']}\nEmbedding: {(c['embedding'])}\n")
 
 
-Index / Vector Store
-~~~~~~~~~~~~~~~~~~~~~
+**Index / Vector Store**
 
 These embeddings are then stored in a specialized database called a vector store or embedding index, that can supporting efficient similarity queries (nearest neighbors, etc.). This enables rapid retrieval of relevant chunks given a query. 
 Some of the popular vector stores are ChromaDB, Neo4j, FAISS (Facebook AI Similarity Search).
@@ -224,8 +224,9 @@ Key points about vector store are as follows:
 **Scalability**: They are optimized for handling millions or even billions of vectors efficiently.
 **Persistence**: Most vector stores can persist embeddings on disk and support incremental updates.
 
-User Query
-~~~~~~~~~~~
+
+
+**User Query**
 
 An input provided by the user can be in various formats such as text, image, code, or other modalities.
 
@@ -233,27 +234,25 @@ The user's query typically triggers two main processes:
 * Retrieval: Fetching relevant context or information from a knowledge base, vector store, or database.
 * Generation: Producing a response using an LLM or other generative model, often conditioned on the retrieved context.
 
-Retriever
-~~~~~~~~~~
+**Retriever**
 
 We store embeddings of relevant information from external knowledge sources in a vector database. These embeddings serve as the inputs to the retriever, which performs a similarity search to find the most relevant chunks in response to a user query. The retrieved information is then passed to the LLM model to produce a context-aware response.
 
-LLM (Generator)
-~~~~~~~~~~~~~~~
+
+**LLM (Generator)**
 
 The model (e.g., GPT-style or other LLM) receives the embeddings from user's query combined with the embeddings of context retrieved from the vector store. Using these, the LLM generates a response.
  Because the context is drawn from external knowledge sources, the output is more likely to be factually accurate, relevant, and context-aware.
 
+.. note::
 
 When do we use Vector-based RAG vs Graph-based RAG?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 Vector-based RAG works best for searching through large amounts of unstructured data like documents or code. For example, a system that answers questions from a company’s knowledge base uses vector search to find relevant passages quickly. 
 Graph-based RAG is better when connections between pieces of information matter, allowing reasoning across linked data—for instance, a biomedical knowledge graph that finds relationships between drugs, genes, and diseases.
 
 
 Graph-based RAG (Graph RAG)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------
 
 While the **classical** RAG pipeline (documents → split → embed → vector store → retrieve → LLM) works for many tasks, there are scenarios where more sophisticated retrieval / knowledge integration approaches are beneficial.
 
@@ -262,16 +261,18 @@ This is especially useful when your data is structured, relational, or has compl
 Graph RAG can help with context coherence, relational reasoning, and reduce hallucinations by grounding answers in structured relationships rather than free-text chunks.
 
 .. figure:: ./images/graph_rag.png
-    :width: 310px
+    :width: 500px
     :align: center
 
 This knowledge graph is built using the Tapis readthedocs. There are several microservices with the Tapis framework that have relationships with each other.
 
 
-Frameworks build RAG Applications
-=================================
+Popular RAG Frameworks
+-----------------------
 
-`LangChain <https://docs.langchain.com/oss/python/langchain/overview>` : The most popular framework that make building RAG applications super easy. 
+`LangChain <https://docs.langchain.com/oss/python/langchain/overview>_` 
+
+The most popular framework that make building RAG applications super easy. 
 
 LangChain is a widely used framework for building RAG pipelines, chatbots, summarization tools, and more. It provides abstractions for document loading, splitting, embedding generation, vector store integration, retrievers, prompt templates, LLM wrappers, and chaining of operations.
 LangaChain can be integrated with OpenAI, Anthropic, `Sambanova <https://sambanova.ai/blog/tacc-deploys-sambanova-suite-ai-inference-for-scientific-research>`

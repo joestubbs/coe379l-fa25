@@ -1,5 +1,5 @@
-More on RAG 
-============
+More on Retrieval-Augmented Generation (RAG)
+=======================================
 
 In the previous RAG lecture, we saw how combining retrieval with a language model can produce more 
 accurate, context-specific responses. In this follow-up, we dig deeper: we’ll unpack the main 
@@ -15,8 +15,8 @@ By the end of this module, students should be able to:
 * Use frameworks to build maintainable, extensible RAG applications;
 
 
-Examples of Retrieval-Augmented Generation (RAG)
--------------------------------------------------
+RAG Examples
+------------
 
 **Healthcare and Research Assistants**
 
@@ -46,14 +46,14 @@ Examples of Retrieval-Augmented Generation (RAG)
 
 
 Core Components of a RAG System 
-================================
+-------------------------------
 
 RAG empowers an LLM to produce grounded, context-aware responses by pulling in information from 
 outside sources. This is made possible through a set of architectural components that operate 
 together in a defined workflow. Let's take a closer look at each compoment.
 
 .. figure:: ./images/RAG.png
-    :width: 310px
+    :width: 500px
     :align: center
 
     RAG workflow diagram.
@@ -65,8 +65,8 @@ original question and the retrieved documents to the LLM. The LLM uses this comb
 generate an informed response, which is finally delivered back to the user.
 
 
-Data sources and Knowledge base
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Data sources and Knowledge base**
+
 
 The knowledge base can contain both structured and unstructured data. It could be in the form of CSV 
 files with rows and columns, or it could be text documents such as PDF or HTML files. You can also 
@@ -92,73 +92,90 @@ retrieval and RAG processing.
 
     import re
 
-    def chunk_text(text, max_tokens=100):
-        # Simple sentence split
-        sentences = re.split(r'(?<=[.!?]) +', text.strip())
-
+    def chunk_text(texts, max_tokens=100):
+        """
+        Split one or more texts into chunks based on sentence boundaries and a max token limit.
+        Accepts a single string or a list of strings.
+        """
+        # Ensure we have a list of texts
+        if isinstance(texts, str):
+            texts = [texts]
+        
         chunks = []
-        current_chunk = ""
 
-        for sentence in sentences:
-            # If adding this sentence exceeds the limit, start a new chunk
-            if len(current_chunk.split()) + len(sentence.split()) > max_tokens:
+        for text in texts:
+            # Split into sentences and remove any empty strings
+            sentences = [s for s in re.split(r'(?<=[.!?]) +', text.strip()) if s]
+            current_chunk = ""
+
+            for sentence in sentences:
+                if len(current_chunk.split()) + len(sentence.split()) > max_tokens:
+                    if current_chunk:  # avoid adding empty chunks
+                        chunks.append(current_chunk.strip())
+                    current_chunk = sentence
+                else:
+                    current_chunk += " " + sentence if current_chunk else sentence
+
+            if current_chunk:
                 chunks.append(current_chunk.strip())
-                current_chunk = sentence
-            else:
-                current_chunk += " " + sentence
-
-        # Add the last chunk
-        if current_chunk:
-            chunks.append(current_chunk.strip())
-
+        
         return chunks
 
-This code defines a simple text-chunking function that splits a long passage into manageable pieces based on a maximum token (word) limit. It first divides the text into sentences, then iteratively groups those sentences into chunks without exceeding the specified token count. 
-When adding a sentence would surpass the limit, a new chunk is started. Finally, the function returns a list of all generated text chunk. 
 
+This code defines a simple text-chunking function that splits a long passage into manageable pieces 
+based on a maximum token (word) limit. It first divides the text into sentences, then iteratively 
+groups those sentences into chunks without exceeding the specified token count. 
+When adding a sentence would surpass the limit, a new chunk is started. Finally, the function 
+returns a list of all generated text chunk. 
 
 .. code-block:: python3 
 
-        tapis_documents = [
+    tapis_documents = [
         "Tapis is an NSF-funded web-based API framework for securely managing computational workloads across infrastructure and institutions, so that experts can focus on their research instead of the technology needed to accomplish it.",
         "As part of work funded by the National Science Foundation starting in 2019, Tapis is delivering a version 3 (“v3”) of its platform with several new capabilities, including a multi-site Security Kernel, Streaming Data APIs, and first-class support for containerized applications.",
         "Python code for generating a Tapis token: from tapipy.tapis import Tapis ...",  # shortened for example
-        ]
+    ]
 
-        # Step 1: Chunk the document
-        chunks = chunk_text(doc)
-        print(chunks)
+    all_chunks = []
+    for doc in tapis_documents:
+        all_chunks.extend(chunk_text(doc, max_tokens=20))
+
+    print(all_chunks)
 
 
 .. code-block:: python3 
 
-    Output - > ['Tapis is an NSF-funded web-based API framework for securely managing computational workloads across infrastructure and institutions, so that experts can focus on their research instead of the technology needed to accomplish it. As part of work funded by the National Science Foundation starting in 2019, Tapis is delivering a version 3 (“v3”) of its platform with several new capabilities, including a multi-site Security Kernel, Streaming Data APIs, and first-class support for containerized applications.ine.']
+    ['Tapis is an NSF-funded web-based API framework for securely managing computational workloads across infrastructure and institutions, so that experts can focus on their research instead of the technology needed to accomplish it.', 'As part of work funded by the National Science Foundation starting in 2019, Tapis is delivering a version 3 (“v3”) of its platform with several new capabilities, including a multi-site Security Kernel, Streaming Data APIs, and first-class support for containerized applications.', 'Python code for generating a Tapis token: from tapipy.tapis import Tapis ...']
+
 
 The output shows a list of text chunks generated.
 
 
 
 **Embeddings (Vectorization)**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Now that we have chunks of fixed length created, we will create embeddings for each chunk. 
-Embeddings are the backbone of retrieval. Each chunk is turned into a numerical vector (an embedding) capturing semantic meaning.
 
-You will have to pre-pull the embedding model **nomic-embed-text** by exec-ing into the Ollama container and issuinng command
+Now that we have created chunks of fixed length, we will create embeddings for each chunk. 
+Embeddings are the backbone of retrieval. Each chunk is turned into a numerical vector (an embedding) 
+capturing its semantic meaning in a given context.
+
+You will have to pre-pull the embedding model **nomic-embed-text** by exec-ing into the Ollama 
+container and running a command
 
 .. code-block:: python3 
 
     olama pull nomic-embed-text
 
-When you pull any embedding model (or any model) with Ollama, the model comes packaged with a Manifest file (called a Modelfile) that describes how Ollama should load and run the model.
-
+When you pull any embedding model (or any model) with Ollama, the model comes packaged with a 
+Manifest file (called a Modelfile) that describes how Ollama should load and run the model.
 
 .. code-block:: python3 
 
     ollama show --modelfile nomic-embed-text
 
 
-The code below generates an embedding vector for a given text chunk using a local Ollama API. This embedding can then be used in a RAG system for semantic search or retrieval.
+The code below generates an embedding vector for a given text chunk using a local Ollama API. This 
+embedding can then be used in a RAG system for semantic search or retrieval.
 
 
 .. code-block:: python3 
@@ -212,11 +229,10 @@ Next, to view chunks and its associated embedding you can use the code below
 
     if __name__ == "__main__":
     tapis_documents = [
-        "Tapis is an NSF-funded web-based API framework ...",
-        "As part of work funded by the National Science Foundation ...",
-        "Python code for generating a Tapis token: from tapipy.tapis import Tapis ..."
+    "Tapis is an NSF-funded web-based API framework for securely managing computational workloads across infrastructure and institutions, so that experts can focus on their research instead of the technology needed to accomplish it.",
+    "As part of work funded by the National Science Foundation starting in 2019, Tapis is delivering a version 3 (“v3”) of its platform with several new capabilities, including a multi-site Security Kernel, Streaming Data APIs, and first-class support for containerized applications.",
+    "Python code for generating a Tapis token: from tapipy.tapis import Tapis ...",  # shortened for example
     ]
-
     rag_chunks = []
 
     for doc in tapis_documents:
@@ -227,8 +243,7 @@ Next, to view chunks and its associated embedding you can use the code below
         print(f"Chunk {i+1}:\n{c['chunk']}\nEmbedding: {(c['embedding'])}\n")
 
 
-Index / Vector Store
-~~~~~~~~~~~~~~~~~~~~~
+**Index / Vector Store**
 
 These embeddings are then stored in a specialized database called a vector store or embedding index, that can supporting efficient similarity queries (nearest neighbors, etc.). This enables rapid retrieval of relevant chunks given a query. 
 Some of the popular vector stores are ChromaDB, Neo4j, FAISS (Facebook AI Similarity Search).
@@ -240,8 +255,9 @@ Key points about vector store are as follows:
 **Scalability**: They are optimized for handling millions or even billions of vectors efficiently.
 **Persistence**: Most vector stores can persist embeddings on disk and support incremental updates.
 
-User Query
-~~~~~~~~~~~
+
+
+**User Query**
 
 An input provided by the user can be in various formats such as text, image, code, or other modalities.
 
@@ -249,27 +265,25 @@ The user's query typically triggers two main processes:
 * Retrieval: Fetching relevant context or information from a knowledge base, vector store, or database.
 * Generation: Producing a response using an LLM or other generative model, often conditioned on the retrieved context.
 
-Retriever
-~~~~~~~~~~
+**Retriever**
 
 We store embeddings of relevant information from external knowledge sources in a vector database. These embeddings serve as the inputs to the retriever, which performs a similarity search to find the most relevant chunks in response to a user query. The retrieved information is then passed to the LLM model to produce a context-aware response.
 
-LLM (Generator)
-~~~~~~~~~~~~~~~
+
+**LLM (Generator)**
 
 The model (e.g., GPT-style or other LLM) receives the embeddings from user's query combined with the embeddings of context retrieved from the vector store. Using these, the LLM generates a response.
  Because the context is drawn from external knowledge sources, the output is more likely to be factually accurate, relevant, and context-aware.
 
+.. note::
 
-When do we use Vector-based RAG vs Graph-based RAG?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Vector-based RAG works best for searching through large amounts of unstructured data like documents or code. For example, a system that answers questions from a company’s knowledge base uses vector search to find relevant passages quickly. 
-Graph-based RAG is better when connections between pieces of information matter, allowing reasoning across linked data—for instance, a biomedical knowledge graph that finds relationships between drugs, genes, and diseases.
+    When do we use Vector-based RAG vs Graph-based RAG?
+    Vector-based RAG works best for searching through large amounts of unstructured data like documents or code. For example, a system that answers questions from a company’s knowledge base uses vector search to find relevant passages quickly. 
+    Graph-based RAG is better when connections between pieces of information matter, allowing reasoning across linked data—for instance, a biomedical knowledge graph that finds relationships between drugs, genes, and diseases.
 
 
 Graph-based RAG (Graph RAG)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------
 
 While the **classical** RAG pipeline (documents → split → embed → vector store → retrieve → LLM) works for many tasks, there are scenarios where more sophisticated retrieval / knowledge integration approaches are beneficial.
 
@@ -278,16 +292,18 @@ This is especially useful when your data is structured, relational, or has compl
 Graph RAG can help with context coherence, relational reasoning, and reduce hallucinations by grounding answers in structured relationships rather than free-text chunks.
 
 .. figure:: ./images/graph_rag.png
-    :width: 310px
+    :width: 500px
     :align: center
 
 This knowledge graph is built using the Tapis readthedocs. There are several microservices with the Tapis framework that have relationships with each other.
 
 
-Frameworks build RAG Applications
-=================================
+Popular RAG Framework
+-----------------------
 
-`LangChain <https://docs.langchain.com/oss/python/langchain/overview>` : The most popular framework that make building RAG applications super easy. 
+`LangChain <https://docs.langchain.com/oss/python/langchain/overview>`_ 
+
+The most popular framework that make building RAG applications super easy. 
 
 LangChain is a widely used framework for building RAG pipelines, chatbots, summarization tools, and more. It provides abstractions for document loading, splitting, embedding generation, vector store integration, retrievers, prompt templates, LLM wrappers, and chaining of operations.
 LangaChain can be integrated with OpenAI, Anthropic, `Sambanova <https://sambanova.ai/blog/tacc-deploys-sambanova-suite-ai-inference-for-scientific-research>`
@@ -331,18 +347,20 @@ LangaChain can be integrated with OpenAI, Anthropic, `Sambanova <https://sambano
     user_question = input("Enter your question: ")
     answer = ask_question(user_question)
     print("\nAssistant:", answer)
+      
         
+.. code-block:: python3 
+    
+    Output -> 
+    Enter your question:  what is Tapis?
 
-Output -> 
-Enter your question:  what is Tapis?
+    Assistant: Tapis can refer to different things, but here are a few possible meanings:
 
-Assistant: Tapis can refer to different things, but here are a few possible meanings:
+    1. Tapis (textile): Tapis is a type of traditional textile art form that originated in Southeast Asia, particularly in Indonesia and Malaysia. It is a kind of woven cloth, often made from silk or cotton, that features intricate designs and patterns. Tapis textiles are highly valued for their beauty and cultural significance.
 
-1. Tapis (textile): Tapis is a type of traditional textile art form that originated in Southeast Asia, particularly in Indonesia and Malaysia. It is a kind of woven cloth, often made from silk or cotton, that features intricate designs and patterns. Tapis textiles are highly valued for their beauty and cultural significance.
+    2. Tapis (software): Tapis is also the name of a software framework designed for building scalable, distributed applications. It is an open-source platform that provides a set of tools and APIs for developing data-intensive applications, particularly in the fields of science and engineering.
 
-2. Tapis (software): Tapis is also the name of a software framework designed for building scalable, distributed applications. It is an open-source platform that provides a set of tools and APIs for developing data-intensive applications, particularly in the fields of science and engineering.
+    3. Tapis (French word): In French, "tapis" means "carpet" or "rug". It can also refer to a tapestry or a woven wall hanging.
 
-3. Tapis (French word): In French, "tapis" means "carpet" or "rug". It can also refer to a tapestry or a woven wall hanging.
-
-Without more context, it's difficult to determine which definition is most relevant. If you have any additional information or clarification, I'd be happy to try and provide a more specific answer.
+    Without more context, it's difficult to determine which definition is most relevant. If you have any additional information or clarification, I'd be happy to try and provide a more specific answer.
 

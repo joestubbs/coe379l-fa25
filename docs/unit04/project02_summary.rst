@@ -32,3 +32,9 @@ General Comments:
 
 4. Late submission significantly affected the score.
 
+Overview of the 1st-Place Model 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Regarding the 1st-place model in this project, the group not only explored the models required by the assignment 
+but also tested a Swin Transformer (Swin-T), a vision transformer architecture. 
+Unlike CNNs, which capture only local spatial patterns through convolutions, Swin-T leverages hierarchical self-attention 
+to learn both local and global image dependencies, enabling significantly stronger feature representation and higher accuracy.

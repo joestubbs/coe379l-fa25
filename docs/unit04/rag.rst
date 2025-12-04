@@ -90,6 +90,7 @@ chunks by grouping sentences into fixed-size token blocks, preparing them for mo
 retrieval and RAG processing. ``Note we are not doing tokenizer-based chunking here. You can use AutoTokenizer from transformer to do that``.
 This example simply shows chunking based on the word limit. 
 
+
 .. code-block:: python 3
 
     tapis_documents = [
@@ -317,7 +318,7 @@ LangaChain can be integrated with OpenAI, Anthropic, `Sambanova <https://sambano
 .. code-block:: python3 
 
     import os
-i   mport openai
+    import openai
 
     tapis_documents = [
         "Tapis is an NSF-funded web-based API framework for securely managing computational workloads across infrastructure and institutions, so that experts can focus on their research instead of the technology needed to accomplish it.",

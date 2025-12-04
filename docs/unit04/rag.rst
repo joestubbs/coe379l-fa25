@@ -317,20 +317,28 @@ LangaChain can be integrated with OpenAI, Anthropic, `Sambanova <https://sambano
 .. code-block:: python3 
 
     import os
-    import openai
+i   mport openai
 
+    tapis_documents = [
+        "Tapis is an NSF-funded web-based API framework for securely managing computational workloads across infrastructure and institutions, so that experts can focus on their research instead of the technology needed to accomplish it.",
+        "As part of work funded by the National Science Foundation starting in 2019, Tapis is delivering a version 3 (“v3”) of its platform with several new capabilities, including a multi-site Security Kernel, Streaming Data APIs, and first-class support for containerized applications.",
+        "Python code for generating a Tapis token: from tapipy.tapis import Tapis ..."
+    ]
     client = openai.OpenAI(
         api_key=os.environ.get("SAMBANOVA_API_KEY"),
         base_url="https://tejas.tacc.utexas.edu/v1/60709c21-409c-44a5-8a9d-1638fad5d5a6",
     )
 
     # Function to get a response for a user question
-    def ask_question(question: str):
+    def ask_question_with_context(question: str, context_docs: list):
+        # Combine all documents into a single context string
+        context_text = "\n".join(context_docs)
+    
         response = client.chat.completions.create(
             model='Meta-Llama-3.1-405B-Instruct',
             messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": question}
+                {"role": "user", "content": f"Use the following context to answer the question:\n\n{context_text}\n\nQuestion: {question}"}
             ],
             temperature=0.1,
             top_p=0.1
@@ -339,22 +347,32 @@ LangaChain can be integrated with OpenAI, Anthropic, `Sambanova <https://sambano
 
     # Example: single user input
     user_question = input("Enter your question: ")
-    answer = ask_question(user_question)
+    answer = ask_question_with_context(user_question, tapis_documents)
     print("\nAssistant:", answer)
-      
+        
         
 .. code-block:: python3 
     
     Output -> 
     Enter your question:  what is Tapis?
 
-    Assistant: Tapis can refer to different things, but here are a few possible meanings:
+    Assistant: Tapis is a web-based API framework that securely manages computational workloads across different infrastructures and institutions, allowing researchers to focus on their work rather than the underlying technology. It is funded by the National Science Foundation (NSF).
 
-    1. Tapis (textile): Tapis is a type of traditional textile art form that originated in Southeast Asia, particularly in Indonesia and Malaysia. It is a kind of woven cloth, often made from silk or cotton, that features intricate designs and patterns. Tapis textiles are highly valued for their beauty and cultural significance.
 
-    2. Tapis (software): Tapis is also the name of a software framework designed for building scalable, distributed applications. It is an open-source platform that provides a set of tools and APIs for developing data-intensive applications, particularly in the fields of science and engineering.
 
-    3. Tapis (French word): In French, "tapis" means "carpet" or "rug". It can also refer to a tapestry or a woven wall hanging.
 
-    Without more context, it's difficult to determine which definition is most relevant. If you have any additional information or clarification, I'd be happy to try and provide a more specific answer.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

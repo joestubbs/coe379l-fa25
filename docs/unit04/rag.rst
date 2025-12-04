@@ -71,7 +71,7 @@ generate an informed response, which is finally delivered back to the user.
 The knowledge base can contain both structured and unstructured data. It could be in the form of CSV 
 files with rows and columns, or it could be text documents such as PDF or HTML files. You can also 
 connect your knowledge base to streaming data sources or APIs. The documents in a knowlege base be 
-preproceed and convereted to embeddings for the retrieval to work efficiently. 
+preprocessed and converted to embeddings for the retrieval to work efficiently. 
 
 A raw document (e.g., a long PDF, research paper, book chapter) may be thousands of words — far 
 exceeding what a LLM can reasonably handle at once. If you treat entire documents as single units, 
@@ -81,75 +81,63 @@ irrelevant data, hiding the pertinent details. Instead, if you divide documents 
 retrieval returns just a handful of chunks relevant to the query. This improves both precision 
 (less irrelevant text) and efficiency (fewer tokens, faster inference) of the LLM's generated 
 response. Thus, **document splitting** or **chunking** is fundamental to making RAG practical, 
-scalable, and precise.
+scalable, and precise. ``Note that each LLM has a context window size (8K, 32K, 128K, etc.) and let's say for a book with 
+70K words the amount of token is approximately 100K.``
 
 In the last lecture, we used several Tapis code generation snippets as documents and generated 
 embeddings for them. In this section, we will learn how to split these documents into smaller 
 chunks by grouping sentences into fixed-size token blocks, preparing them for more efficient 
-retrieval and RAG processing.
+retrieval and RAG processing. ``Note we are not doing tokenizer-based chunking here. You can use AutoTokenizer from transformer to do that``.
+This example simply shows chunking based on the word limit. 
 
-.. code-block:: python3 
-
-    import re
-
-    def chunk_text(texts, max_tokens=100):
-        """
-        Split one or more texts into chunks based on sentence boundaries and a max token limit.
-        Accepts a single string or a list of strings.
-        """
-        # Ensure we have a list of texts
-        if isinstance(texts, str):
-            texts = [texts]
-        
-        chunks = []
-
-        for text in texts:
-            # Split into sentences and remove any empty strings
-            sentences = [s for s in re.split(r'(?<=[.!?]) +', text.strip()) if s]
-            current_chunk = ""
-
-            for sentence in sentences:
-                if len(current_chunk.split()) + len(sentence.split()) > max_tokens:
-                    if current_chunk:  # avoid adding empty chunks
-                        chunks.append(current_chunk.strip())
-                    current_chunk = sentence
-                else:
-                    current_chunk += " " + sentence if current_chunk else sentence
-
-            if current_chunk:
-                chunks.append(current_chunk.strip())
-        
-        return chunks
-
-
-This code defines a simple text-chunking function that splits a long passage into manageable pieces 
-based on a maximum token (word) limit. It first divides the text into sentences, then iteratively 
-groups those sentences into chunks without exceeding the specified token count. 
-When adding a sentence would surpass the limit, a new chunk is started. Finally, the function 
-returns a list of all generated text chunk. 
-
-.. code-block:: python3 
+.. code-block:: python 3
 
     tapis_documents = [
-        "Tapis is an NSF-funded web-based API framework for securely managing computational workloads across infrastructure and institutions, so that experts can focus on their research instead of the technology needed to accomplish it.",
-        "As part of work funded by the National Science Foundation starting in 2019, Tapis is delivering a version 3 (“v3”) of its platform with several new capabilities, including a multi-site Security Kernel, Streaming Data APIs, and first-class support for containerized applications.",
-        "Python code for generating a Tapis token: from tapipy.tapis import Tapis ...",  # shortened for example
+    "Tapis is an NSF-funded web-based API framework for securely managing computational workloads across infrastructure and institutions, so that experts can focus on their research instead of the technology needed to accomplish it.",
+    "As part of work funded by the National Science Foundation starting in 2019, Tapis is delivering a version 3 (“v3”) of its platform with several new capabilities, including a multi-site Security Kernel, Streaming Data APIs, and first-class support for containerized applications.",
+    "Python code for generating a Tapis token: from tapipy.tapis import Tapis ...",  # shortened for example
     ]
-
-    all_chunks = []
-    for doc in tapis_documents:
-        all_chunks.extend(chunk_text(doc, max_tokens=20))
-
-    print(all_chunks)
 
 
 .. code-block:: python3 
 
-    ['Tapis is an NSF-funded web-based API framework for securely managing computational workloads across infrastructure and institutions, so that experts can focus on their research instead of the technology needed to accomplish it.', 'As part of work funded by the National Science Foundation starting in 2019, Tapis is delivering a version 3 (“v3”) of its platform with several new capabilities, including a multi-site Security Kernel, Streaming Data APIs, and first-class support for containerized applications.', 'Python code for generating a Tapis token: from tapipy.tapis import Tapis ...']
+    def chunk_text_words(texts, max_tokens=20):
+        if isinstance(texts, str):
+            texts = [texts]
+
+        all_chunks = []
+        for text in texts:
+            words = text.split()
+            for i in range(0, len(words), max_tokens):
+                chunk = " ".join(words[i:i+max_tokens])
+                all_chunks.append(chunk)
+        return all_chunks
+
+        # Apply to documents
+    all_chunks = chunk_text_words(tapis_documents, max_tokens=20)
+    for i, c in enumerate(all_chunks, 1):
+        print(f"Chunk {i} ({len(c.split())} words): {c}\n")
+
+
+This code will break long sentences into chunks of 20 words. 
+
+
+.. code-block:: python3 
+
+    Chunk 1 (20 words): Tapis is an NSF-funded web-based API framework for securely managing computational workloads across infrastructure and institutions, so that experts can
+
+    Chunk 2 (12 words): focus on their research instead of the technology needed to accomplish it.
+
+    Chunk 3 (20 words): As part of work funded by the National Science Foundation starting in 2019, Tapis is delivering a version 3 (“v3”)
+
+    Chunk 4 (20 words): of its platform with several new capabilities, including a multi-site Security Kernel, Streaming Data APIs, and first-class support for containerized
+
+    Chunk 5 (1 words): applications.
+
+    Chunk 6 (12 words): Python code for generating a Tapis token: from tapipy.tapis import Tapis ...
 
 
 The output shows a list of text chunks generated.
-
 
 
 **Embeddings (Vectorization)**
@@ -212,7 +200,7 @@ Next, to view chunks and its associated embedding you can use the code below
         2. Generate embeddings for each chunk
         3. Return a list of dicts: {"chunk": text, "embedding": vector}
         """
-        chunks = chunk_text(text, max_tokens=chunk_size)
+        chunks = chunk_text_words(text, max_tokens=chunk_size)
         embedded_chunks = []
 
         for chunk in chunks:

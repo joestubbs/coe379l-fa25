@@ -17,3 +17,4 @@ tasks and benchmarks by working with some specific examples.
    hands_on_transformers
    chatbots
    rag
+   project02_summary

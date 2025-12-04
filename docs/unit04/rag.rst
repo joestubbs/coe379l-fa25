@@ -239,9 +239,11 @@ Some of the popular vector stores are ChromaDB, Neo4j, FAISS (Facebook AI Simila
 
 Key points about vector store are as follows:
 
-**Similarity Search**: Vector stores perform operations like cosine similarity, Euclidean distance, or dot product to find the closest embeddings to a given query vector.
-**Scalability**: They are optimized for handling millions or even billions of vectors efficiently.
-**Persistence**: Most vector stores can persist embeddings on disk and support incremental updates.
+* **Similarity Search**: Vector stores perform operations like cosine similarity, Euclidean distance, or dot product to find the closest embeddings to a given query vector.
+
+* **Scalability**: They are optimized for handling millions or even billions of vectors efficiently.
+
+* **Persistence**: Most vector stores can persist embeddings on disk and support incremental updates.
 
 
 
@@ -250,22 +252,26 @@ Key points about vector store are as follows:
 An input provided by the user can be in various formats such as text, image, code, or other modalities.
 
 The user's query typically triggers two main processes:
+
 * Retrieval: Fetching relevant context or information from a knowledge base, vector store, or database.
+
 * Generation: Producing a response using an LLM or other generative model, often conditioned on the retrieved context.
 
 **Retriever**
 
-We store embeddings of relevant information from external knowledge sources in a vector database. These embeddings serve as the inputs to the retriever, which performs a similarity search to find the most relevant chunks in response to a user query. The retrieved information is then passed to the LLM model to produce a context-aware response.
+When the user sends a query, the query text is first converted into an embedding vector using the same embedding model used for your documents.
+Then the retriever queries the vector database, using this query embedding to find the most similar document embeddings stored in the DB.
+Usually, similarity is measured with cosine similarity, Euclidean distance, or other metrics. Top K results are returned to the retriver.
 
 
 **LLM (Generator)**
 
-The model (e.g., GPT-style or other LLM) receives the embeddings from user's query combined with the embeddings of context retrieved from the vector store. Using these, the LLM generates a response.
- Because the context is drawn from external knowledge sources, the output is more likely to be factually accurate, relevant, and context-aware.
+The model (e.g., GPT-style or other LLM) receives the user query along with the relevant context retrieved from the vector store. Using this combined prompt, the LLM generates a context-aware response.
 
 .. note::
 
-    When do we use Vector-based RAG vs Graph-based RAG?
+    ``When do we use Vector-based RAG vs Graph-based RAG?``
+
     Vector-based RAG works best for searching through large amounts of unstructured data like documents or code. For example, a system that answers questions from a company’s knowledge base uses vector search to find relevant passages quickly. 
     Graph-based RAG is better when connections between pieces of information matter, allowing reasoning across linked data—for instance, a biomedical knowledge graph that finds relationships between drugs, genes, and diseases.
 
@@ -294,7 +300,7 @@ Popular RAG Framework
 The most popular framework that make building RAG applications super easy. 
 
 LangChain is a widely used framework for building RAG pipelines, chatbots, summarization tools, and more. It provides abstractions for document loading, splitting, embedding generation, vector store integration, retrievers, prompt templates, LLM wrappers, and chaining of operations.
-LangaChain can be integrated with OpenAI, Anthropic, `Sambanova <https://sambanova.ai/blog/tacc-deploys-sambanova-suite-ai-inference-for-scientific-research>`
+LangaChain can be integrated with OpenAI, Anthropic, `Sambanova <https://sambanova.ai/blog/tacc-deploys-sambanova-suite-ai-inference-for-scientific-research>`_
 
 .. code-block:: python3 
 
